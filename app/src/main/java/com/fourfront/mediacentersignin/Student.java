@@ -16,22 +16,21 @@ import java.util.Scanner;
 
 public class Student implements Serializable {
 
-    private String ID;                      // 6-digit id
+    private boolean isStudent;
 
+    private String ID;                      // 6-digit id
     private String FULL_NAME;               // full name
     private String FIRST;                   // first name
     private String MI;                      // middle initial
     private String LAST;                    // last name
 
     private ArrayList<String> CRSTITLE;     // course title
-
+    private ArrayList<String> DUR;          // duration (semesters)
     private ArrayList<String> TCHF;         // teacher first
     private ArrayList<String> TCHL;         // teacher last
 
     private String CNSLRF;                  // counselor first
     private String CNSLRL;                  // counselor last
-
-    private boolean isStudent;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -47,6 +46,10 @@ public class Student implements Serializable {
 
     public ArrayList<String> getCourses() {
         return CRSTITLE;
+    }
+
+    public ArrayList<String> getDurations() {
+        return DUR;
     }
 
     public ArrayList<String> getTeacherNames() {
@@ -149,10 +152,8 @@ public class Student implements Serializable {
 
         if (info.isEmpty()) {
             isStudent = false;
-            System.out.println(id + " is not a student");
         } else {
             isStudent = true;
-            System.out.println(id + " is a student");
 
             String[] firstLine = info.get(0);
 
@@ -172,6 +173,7 @@ public class Student implements Serializable {
 
             for (String[] element: info) {
                 CRSTITLE.add(element[3]);
+                DUR.add(element[4]);
                 TCHF.add(element[9]);
                 TCHL.add(element[10]);
             }
