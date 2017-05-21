@@ -124,7 +124,6 @@ public class Student implements Serializable {
 
         int loop = 1;
         boolean store = false;
-
         while (loop < allStudents.size() && (allStudents.get(loop)[6].equals(id) || !store)) {
             if (allStudents.get(loop)[6].equals(id)) {
                 store = true;
