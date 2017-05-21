@@ -1,10 +1,13 @@
-package com.fourfront.mediacentersignin;
+package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.fourfront.mediacentersignin.R;
+import com.fourfront.mediacentersignin.helper.Student;
 
 public class SelectTeacher extends AppCompatActivity {
 

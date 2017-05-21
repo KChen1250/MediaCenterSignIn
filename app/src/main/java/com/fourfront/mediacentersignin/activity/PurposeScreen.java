@@ -1,7 +1,9 @@
-package com.fourfront.mediacentersignin;
+package com.fourfront.mediacentersignin.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.fourfront.mediacentersignin.R;
 
 public class PurposeScreen extends AppCompatActivity {
 

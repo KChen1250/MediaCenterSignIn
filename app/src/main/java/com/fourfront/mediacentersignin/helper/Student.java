@@ -1,4 +1,4 @@
-package com.fourfront.mediacentersignin;
+package com.fourfront.mediacentersignin.helper;
 
 import android.os.Environment;
 
@@ -168,6 +168,7 @@ public class Student implements Serializable {
             }
 
             CRSTITLE = new ArrayList<>();
+            DUR = new ArrayList<>();
             TCHF = new ArrayList<>();
             TCHL = new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package com.fourfront.mediacentersignin;
+package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
 import android.os.Environment;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.fourfront.mediacentersignin.R;
+import com.fourfront.mediacentersignin.helper.Student;
 
 import java.io.FileOutputStream;
 
