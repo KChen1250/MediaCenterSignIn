@@ -25,8 +25,8 @@
         android:text="Hello, First M. Last"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintLeft_toLeftOf="@+id/textView4" />
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintLeft_toLeftOf="@+id/textView" />
 
     <Button
         android:id="@+id/button"
@@ -41,7 +41,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/checkBox" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Pease slelect the faculty or staff member that sent you to the media center today."
@@ -66,6 +66,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <RadioGroup
+            android:id="@+id/listOfPeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

@@ -4,16 +4,21 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.fourfront.mediacentersignin.R;
 import com.fourfront.mediacentersignin.helper.Student;
+
+import java.util.ArrayList;
 
 public class SelectTeacher extends AppCompatActivity {
 
     private Student student;
     private String selectedFirst;
     private String selectedLast;
+    private RadioGroup rGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,27 @@ public class SelectTeacher extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.nameText);
         name.setText(getString(R.string.welcome_message, student.getFullName()));
 
+        addRadioButtons();
+    }
 
+    private void addRadioButtons() {
+        rGroup = (RadioGroup) findViewById(R.id.listOfPeople);
+        ArrayList<String> teachers = student.getTeacherNames();
+        String counselor = student.getCounselorName();
+        System.out.println(teachers+ counselor);
+
+        for (int i = 0; i < teachers.size(); i++) {
+            addRadioButton(teachers.get(i), i + 1);
+        }
+        addRadioButton(counselor, teachers.size() + 2);
+
+    }
+
+    private void addRadioButton(String str, int id) {
+        RadioButton rb = new RadioButton(SelectTeacher.this);
+        rb.setText(str);
+        rb.setId(id);
+        rGroup.addView(rb);
     }
 
     public void nextButton(View view) {

@@ -59,7 +59,7 @@ public class Student implements Serializable {
     public ArrayList<String> getTeacherNames() {
         ArrayList<String> fullTNs = new ArrayList<>();
         for (int i = 0; i < TCHF.size(); i ++) {
-            fullTNs.add(TCHF + " " + TCHL);
+            fullTNs.add(TCHF.get(i) + " " + TCHL.get(i));
         }
         return fullTNs;
     }
@@ -94,8 +94,6 @@ public class Student implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("hi");
     }
 
     private ArrayList<String[]> getListFromFile(String path) {
@@ -127,7 +125,6 @@ public class Student implements Serializable {
     private ArrayList<String[]> getStudentInfo(String id) {
         ArrayList<String[]> allStudents = getListFromFile(path + "/MediaCenterSignIn/fourfront.mer");
         ArrayList<String[]> thisStudent = new ArrayList<>();
-        System.out.println(allStudents.get(3)[6]);
 
         int loop = 1;
         boolean store = false;
@@ -147,12 +144,6 @@ public class Student implements Serializable {
     public Student(String id) {
         ID = id;
         ArrayList<String[]> info = getStudentInfo(id);
-        for (String[] i : info) {
-            for (String j: i) {
-                System.out.print(j + " | ");
-            }
-            System.out.println();
-        }
 
         if (info.isEmpty()) {
             isStudent = false;
