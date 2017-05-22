@@ -12,6 +12,8 @@ import com.fourfront.mediacentersignin.helper.Student;
 public class SelectTeacher extends AppCompatActivity {
 
     private Student student;
+    private String selectedFirst;
+    private String selectedLast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +23,19 @@ public class SelectTeacher extends AppCompatActivity {
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("STUDENT");
 
-        student.saveToFile("Teacher", "No", "Test reason");
+        //student.saveToFile("Teacher", "No", "Test reason");
 
         TextView name = (TextView) findViewById(R.id.nameText);
         name.setText(getString(R.string.welcome_message, student.getFullName()));
+
+
     }
 
     public void nextButton(View view) {
         Intent intent = new Intent(this, PurposeScreen.class);
         intent.putExtra("STUDENT", student);
+        intent.putExtra("SELFIRST", selectedFirst);
+        intent.putExtra("SELLAST", selectedLast);
         startActivity(intent);
     }
 }

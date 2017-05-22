@@ -40,6 +40,10 @@ public class Student implements Serializable {
         return FULL_NAME;
     }
 
+    public String[] getName() {
+        return new String[]{FIRST, MI, LAST};
+    }
+
     public String getCounselorName() {
         return CNSLRF + " " + CNSLRL;
     }
