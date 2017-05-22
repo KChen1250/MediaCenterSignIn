@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        next = (Button) findViewById(R.id.next1);
+        next = (Button) findViewById(R.id.next);
         id = (EditText) findViewById(R.id.enterID);
         id.addTextChangedListener(m);
     }

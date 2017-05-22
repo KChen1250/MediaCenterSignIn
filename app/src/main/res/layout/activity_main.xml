@@ -57,17 +57,17 @@
             android:layout_marginBottom="0dp" />
 
         <Button
-            android:id="@+id/next1"
-            android:layout_width="wrap_content"
+            android:id="@+id/next"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="0dp"
             android:enabled="false"
             android:onClick="nextButton"
             android:text="Next"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/enterID"
-            app:layout_constraintRight_toRightOf="@+id/textView"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp" />
+            app:layout_constraintRight_toRightOf="@+id/textView" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
