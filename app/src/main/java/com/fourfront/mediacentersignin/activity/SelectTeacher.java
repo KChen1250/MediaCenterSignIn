@@ -42,7 +42,7 @@ public class SelectTeacher extends AppCompatActivity {
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("STUDENT");
 
-        //student.saveToFile("Teacher", "No", "Test reason");
+        student.saveToFile("Teacher", "No", "Test reason");
 
         name = (TextView) findViewById(R.id.nameText);
         next = (Button) findViewById(R.id.next);

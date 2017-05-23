@@ -1,13 +1,15 @@
 package com.fourfront.mediacentersignin.helper;
 
 import android.os.Environment;
+import android.os.SystemClock;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -69,48 +71,49 @@ public class Student implements Serializable {
     }
 
     public void saveToFile(String sender, String isSubstitute, String reason) {
-        String p = path +  "/MediaCenterSignIn/data.csv";
+        String p = path + "/MediaCenterSignIn/data.csv";
 
         Timestamp time = new Timestamp(System.currentTimeMillis());
 
         String content = "\"" + sdf.format(time) + "\",\"" + ID + "\",\"" + FULL_NAME + "\",\"" +
-                sender + "\",\"" + isSubstitute + "\",\"" + reason + "\"";
+                sender + "\",\"" + isSubstitute + "\",\"" + reason + "\"" + System.lineSeparator();
 
         File f = new File(p);
         if(!f.exists()) {
-            try (FileWriter fw = new FileWriter(p, true);
-                 BufferedWriter bw = new BufferedWriter(fw);
-                 PrintWriter out = new PrintWriter(bw)) {
-                out.println("\"Time\",\"ID\",\"Name\",\"Sender\",\"Substitute\",\"Reason\"");
+            try (FileWriter fw = new FileWriter(p);
+                 BufferedWriter bw = new BufferedWriter(fw)) {
+                bw.append("\"Time\",\"ID\",\"Name\",\"Sender\",\"Substitute\",\"Reason\"" + System.lineSeparator());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
         try (FileWriter fw = new FileWriter(p, true);
-             BufferedWriter bw = new BufferedWriter(fw);
-             PrintWriter out = new PrintWriter(bw)) {
-            out.println(content);
+             BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.append(content);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private ArrayList<String[]> getListFromFile(String path) {
-        Scanner inFile = null;
-        try {
-            inFile = new Scanner(new File(path));
-        } catch (FileNotFoundException e) {
+        ArrayList<String> lines = new ArrayList<>();
+
+        Timer.tic();
+        System.out.println("starting to parse file. ###########################################################################################################################");
+
+        try (FileReader fr = new FileReader(path);
+             BufferedReader br = new BufferedReader(fr)) {
+            for (String line = null; (line = br.readLine()) != null;) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        ArrayList<String> lines = new ArrayList<>();
-
-        while(inFile.hasNextLine()){
-            String line = inFile.nextLine();
-            lines.add(line);
-        }
-        inFile.close();
+        System.out.println("done parsing file. continuing to split the entire thing. ##########################################################################################");
+        System.out.println("Time:" + Timer.toc());
+        Timer.tic();
 
         ArrayList<String[]> processed = new ArrayList<>();
 
@@ -119,6 +122,9 @@ public class Student implements Serializable {
             processed.add(line.substring(1, line.length() - 1).split("\",\"", -1));
         }
 
+        System.out.println("done splitting. ###################################################################################################################################");
+        System.out.println("Time:" + Timer.toc());
+
         return processed;
     }
 
@@ -126,7 +132,7 @@ public class Student implements Serializable {
         ArrayList<String[]> allStudents = getListFromFile(path + "/MediaCenterSignIn/fourfront.mer");
         ArrayList<String[]> thisStudent = new ArrayList<>();
 
-        int loop = 1;
+        int loop = 0;
         boolean store = false;
         while (loop < allStudents.size() && (allStudents.get(loop)[6].equals(id) || !store)) {
             if (allStudents.get(loop)[6].equals(id)) {
@@ -137,6 +143,7 @@ public class Student implements Serializable {
             }
             loop ++;
         }
+        System.out.println(loop);
 
         return thisStudent;
     }
@@ -178,4 +185,17 @@ public class Student implements Serializable {
             CNSLRL = firstLine[2];
         }
     }
+}
+
+class Timer{
+    private static long start_time;
+
+    public static double tic(){
+        return start_time = System.nanoTime();
+    }
+
+    public static double toc(){
+        return (System.nanoTime()-start_time)/1000000000.0;
+    }
+
 }
