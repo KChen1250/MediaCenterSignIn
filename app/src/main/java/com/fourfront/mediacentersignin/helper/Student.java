@@ -111,7 +111,7 @@ public class Student implements Serializable {
             e.printStackTrace();
         }
 
-        System.out.println("done parsing file. continuing to split the entire thing. ##########################################################################################");
+        System.out.println("done parsing file. Continuing to split the entire thing. ##########################################################################################");
         System.out.println("Time:" + Timer.toc());
         Timer.tic();
 
