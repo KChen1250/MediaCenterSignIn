@@ -101,7 +101,7 @@ public class Student implements Serializable {
 
         Timer.tic();
         System.out.println("starting to parse file. ###########################################################################################################################");
-        // Test Comment
+
         try (FileReader fr = new FileReader(path);
              BufferedReader br = new BufferedReader(fr)) {
             for (String line = null; (line = br.readLine()) != null;) {
