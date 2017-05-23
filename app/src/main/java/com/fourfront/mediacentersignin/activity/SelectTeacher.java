@@ -74,8 +74,8 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
-        rb.setPadding(10, 0, 0, 20);
-        rb.setTextSize(20);
+        rb.setPadding(10, 0, 0, 15);
+        rb.setTextSize(25);
         rGroup.addView(rb);
     }
 
