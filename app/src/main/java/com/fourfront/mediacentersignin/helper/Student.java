@@ -122,6 +122,8 @@ public class Student implements Serializable {
             processed.add(line.substring(1, line.length() - 1).split("\",\"", -1));
         }
 
+        
+
         System.out.println("done splitting. ###################################################################################################################################");
         System.out.println("Time:" + Timer.toc());
 

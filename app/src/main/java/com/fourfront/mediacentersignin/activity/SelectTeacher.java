@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -57,20 +58,21 @@ public class SelectTeacher extends AppCompatActivity {
     private void addRadioButtons() {
         rGroup = (RadioGroup) findViewById(R.id.listOfPeople);
         ArrayList<String> teachers = student.getTeacherNames();
+        ArrayList<String> courses = student.getCourses();
         String counselor = student.getCounselorName();
         System.out.println(teachers+ counselor);
 
         for (int i = 0; i < teachers.size(); i++) {
-            addRadioButton(teachers.get(i), i + 1);
+            addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), i + 1);
         }
-        addRadioButton(counselor, teachers.size() + 2);
-
+        addRadioButton(counselor + "\nCOUNSELING", teachers.size() + 2);
     }
 
     private void addRadioButton(String str, int id) {
         RadioButton rb = new RadioButton(SelectTeacher.this);
         rb.setText(str);
         rb.setId(id);
+        rb.setGravity(Gravity.TOP);
         rGroup.addView(rb);
     }
 
