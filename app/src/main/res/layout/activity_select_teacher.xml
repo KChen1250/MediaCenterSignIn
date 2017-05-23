@@ -24,7 +24,7 @@
         android:layout_marginBottom="16dp"
         android:text="Hello, First M. Last"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="40sp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintLeft_toLeftOf="@+id/textView" />
 
@@ -43,27 +43,27 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="0dp"
         android:text="Pease slelect the faculty or staff member that sent you to the media center today."
         android:textSize="20sp"
-        android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/scrollView"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView" />
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintLeft_toLeftOf="@+id/scrollView" />
 
     <ScrollView
-        android:layout_width="750dp"
+        android:id="@+id/scrollView"
+        android:layout_width="500dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/scrollView"
         app:layout_constraintVertical_bias="0.0">
 
         <RadioGroup

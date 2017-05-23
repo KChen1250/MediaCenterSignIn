@@ -64,7 +64,7 @@ public class SelectTeacher extends AppCompatActivity {
         System.out.println(teachers+ counselor);
 
         for (int i = 0; i < teachers.size(); i++) {
-            addRadioButton(teachers.get(i) + courses.get(i).toUpperCase(), i + 1);
+            addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), i + 1);
         }
         addRadioButton(counselor + "\nCOUNSELING", teachers.size() + 2);
     }
@@ -74,8 +74,8 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
-        rb.setPadding(10, 0, 0, 25);
-        rb.setTextSize(25);
+        rb.setPadding(10, 0, 0, 20);
+        rb.setTextSize(20);
         rGroup.addView(rb);
     }
 

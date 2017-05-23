@@ -20,12 +20,12 @@
 
     <ScrollView
         android:id="@+id/reasons"
-        android:layout_width="750dp"
+        android:layout_width="500dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginBottom="120dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Almost done now"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         android:layout_marginLeft="0dp"
@@ -52,12 +52,12 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="wrap_content"
+        android:layout_width="500dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="0dp"
         android:text="Please select the reason that you came to the media center today."
         android:textSize="20sp"
-        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/reasons"
-        android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/reasons" />
 </android.support.constraint.ConstraintLayout>
