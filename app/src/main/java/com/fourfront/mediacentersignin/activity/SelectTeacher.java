@@ -3,8 +3,10 @@ package com.fourfront.mediacentersignin.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.IdRes;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +43,11 @@ public class SelectTeacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_teacher);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("STUDENT");
 
@@ -75,7 +82,7 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
         rb.setPadding(10, 0, 0, 15);
-        rb.setTextSize(25);
+        rb.setTextSize(20);
         rGroup.addView(rb);
     }
 
