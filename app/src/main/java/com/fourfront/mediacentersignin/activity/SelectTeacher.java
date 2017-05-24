@@ -68,8 +68,8 @@ public class SelectTeacher extends AppCompatActivity {
         rGroup = (RadioGroup) findViewById(R.id.listOfPeople);
         ArrayList<String> teachers = student.getTeacherNames();
         ArrayList<String> courses = student.getCourses();
+        ArrayList<String> semesters = student.getDurations();
         String counselor = student.getCounselorName();
-        System.out.println(teachers+ counselor);
 
         for (int i = 0; i < teachers.size(); i++) {
             addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), i + 1);
@@ -78,11 +78,11 @@ public class SelectTeacher extends AppCompatActivity {
     }
 
     private void addRadioButton(String str, int id) {
-        RadioButton rb = new RadioButton(SelectTeacher.this);//, null, R.drawable.radio_button_style);
+        RadioButton rb = new RadioButton(SelectTeacher.this);
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
-        rb.setPadding(10, 0, 0, 15);
+        rb.setPadding(10, 0, 0, 10);
         rb.setTextSize(20);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rGroup.addView(rb);

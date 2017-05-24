@@ -155,15 +155,15 @@ public class Student implements Serializable {
 
         // backwards
         int i = index - 1;
-        while (ID.equals(getIDFromLine(allStudents.get(i)))) {
+        while (i >= 0 && ID.equals(getIDFromLine(allStudents.get(i)))) {
             thisStudent.add(0, allStudents.get(i).substring(1, allStudents.get(i).length() - 1).split("\",\"", -1));
             i--;
         }
 
         // forwards
-        while (ID.equals(getIDFromLine(allStudents.get(index)))) {
+        while (index < allStudents.size() && ID.equals(getIDFromLine(allStudents.get(index)))) {
             thisStudent.add(allStudents.get(index).substring(1, allStudents.get(index).length() - 1).split("\",\"", -1));
-            index--;
+            index++;
         }
 
         System.out.println("parsed student. ###################################################################################################################################");
@@ -214,11 +214,11 @@ public class Student implements Serializable {
 class Timer{
     private static long start_time;
 
-    public static double tic(){
+    public static double tic() {
         return start_time = System.nanoTime();
     }
 
-    public static double toc(){
+    public static double toc() {
         return (System.nanoTime()-start_time)/1000000000.0;
     }
 
