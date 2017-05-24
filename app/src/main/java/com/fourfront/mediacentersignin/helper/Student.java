@@ -95,7 +95,7 @@ public class Student implements Serializable {
         }
     }
 
-    private ArrayList<String[]> getListFromFile(String path) {
+    private ArrayList<String> getListFromFile(String path) {
         ArrayList<String> lines = new ArrayList<>();
 
         Timer.tic();
@@ -114,44 +114,67 @@ public class Student implements Serializable {
         System.out.println("Time:" + Timer.toc());
         Timer.tic();
 
-        ArrayList<String[]> processed = new ArrayList<>();
-
-        for (int i = 1; i < lines.size(); i ++) {
-            String line = lines.get(i);
-            processed.add(line.substring(1, line.length() - 1).split("\",\"", -1));
-        }
-
-        
-
-        System.out.println("done splitting. ###################################################################################################################################");
-        System.out.println("Time:" + Timer.toc());
-
-        return processed;
+        lines.remove(0);    // remove the header
+        return lines;
     }
 
-    private ArrayList<String[]> getStudentInfo(String id) {
-        ArrayList<String[]> allStudents = getListFromFile(path + "/MediaCenterSignIn/fourfront.mer");
-        ArrayList<String[]> thisStudent = new ArrayList<>();
+    private String getIDFromLine(String line) {
+        return line.split("\",\"", -1)[6];
+    }
 
-        int loop = 0;
-        boolean store = false;
-        while (loop < allStudents.size() && (allStudents.get(loop)[6].equals(id) || !store)) {
-            if (allStudents.get(loop)[6].equals(id)) {
-                store = true;
+    private int getStudentIndex(ArrayList<String> allStudents) {
+
+        int lo = 0;
+        int hi = allStudents.size() - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (ID.compareTo(getIDFromLine(allStudents.get(mid))) < 0) {
+                hi = mid - 1;
+            } else if (ID.compareTo(getIDFromLine(allStudents.get(mid))) > 0) {
+                lo = mid + 1;
+            } else {
+                return mid;
             }
-            if (store) {
-                thisStudent.add(allStudents.get(loop));
-            }
-            loop ++;
         }
-        System.out.println(loop);
+
+        return -1;
+    }
+
+    private ArrayList<String[]> getStudentInfo() {
+        ArrayList<String> allStudents = getListFromFile(path + "/MediaCenterSignIn/fourfront.mer");
+        ArrayList<String[]> thisStudent = new ArrayList<>();
+        int index = getStudentIndex(allStudents);
+
+        System.out.println("done finding student. ##########################################################################################################");
+        System.out.println("Time:" + Timer.toc());
+        Timer.tic();
+
+        if (index == -1) {
+            return thisStudent;
+        }
+
+        // backwards
+        int i = index - 1;
+        while (ID.equals(getIDFromLine(allStudents.get(i)))) {
+            thisStudent.add(0, allStudents.get(i).substring(1, allStudents.get(i).length() - 1).split("\",\"", -1));
+            i--;
+        }
+
+        // forwards
+        while (ID.equals(getIDFromLine(allStudents.get(index)))) {
+            thisStudent.add(allStudents.get(index).substring(1, allStudents.get(index).length() - 1).split("\",\"", -1));
+            index--;
+        }
+
+        System.out.println("parsed student. ###################################################################################################################################");
+        System.out.println("Time:" + Timer.toc());
 
         return thisStudent;
     }
 
     public Student(String id) {
         ID = id;
-        ArrayList<String[]> info = getStudentInfo(id);
+        ArrayList<String[]> info = getStudentInfo();
 
         if (info.isEmpty()) {
             isStudent = false;

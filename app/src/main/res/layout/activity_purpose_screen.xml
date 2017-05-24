@@ -27,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:enabled="false"
         android:text="Finish"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintRight_toRightOf="@+id/reasons"
         app:layout_constraintTop_toBottomOf="@+id/reasons" />
 
@@ -69,7 +69,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="0dp"
         android:text="Please select the reason that you came to the media center today."
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/reasons"
         app:layout_constraintLeft_toLeftOf="@+id/reasons" />
 </android.support.constraint.ConstraintLayout>
