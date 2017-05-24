@@ -1,12 +1,10 @@
 package com.fourfront.mediacentersignin.helper;
 
 import android.os.Environment;
-import android.os.SystemClock;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +12,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Student implements Serializable {
 
@@ -69,6 +68,12 @@ public class Student implements Serializable {
         return isStudent;
     }
 
+    public String getSemester() {
+        Calendar now = Calendar.getInstance();
+        Calendar semSwitch = Calendar.getInstance();
+        return "";
+    }
+
     public void saveToFile(String sender, String isSubstitute, String reason) {
         String p = path + "/MediaCenterSignIn/data.csv";
 
@@ -110,7 +115,7 @@ public class Student implements Serializable {
             e.printStackTrace();
         }
 
-        System.out.println("done parsing file. Continuing to split the entire thing. ##########################################################################################");
+        System.out.println("done parsing file. continuing to split the entire thing. ##########################################################################################");
         System.out.println("Time:" + Timer.toc());
         Timer.tic();
 
