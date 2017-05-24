@@ -2,6 +2,7 @@ package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.provider.CalendarContract;
 import android.support.annotation.IdRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -77,12 +78,13 @@ public class SelectTeacher extends AppCompatActivity {
     }
 
     private void addRadioButton(String str, int id) {
-        RadioButton rb = new RadioButton(SelectTeacher.this);
+        RadioButton rb = new RadioButton(SelectTeacher.this);//, null, R.drawable.radio_button_style);
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
         rb.setPadding(10, 0, 0, 15);
         rb.setTextSize(20);
+        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rGroup.addView(rb);
     }
 
