@@ -26,13 +26,14 @@
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:enabled="false"
+        android:onClick="sendInfoDone"
         android:text="Finish"
         android:textSize="20sp"
-        app:layout_constraintRight_toRightOf="@+id/reasons"
-        app:layout_constraintTop_toBottomOf="@+id/reasons" />
+        app:layout_constraintRight_toRightOf="@+id/scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     <ScrollView
-        android:id="@+id/reasons"
+        android:id="@+id/scrollView"
         android:layout_width="500dp"
         android:layout_height="0dp"
         android:layout_marginBottom="110dp"
@@ -44,10 +45,10 @@
         android:layout_marginTop="200dp"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar">
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/listOfReasons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
+            android:layout_height="wrap_content" />
     </ScrollView>
 
     <TextView
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Almost done now"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         android:layout_marginLeft="0dp"
@@ -68,8 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="0dp"
-        android:text="Please select the reason that you came to the media center today."
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/reasons"
-        app:layout_constraintLeft_toLeftOf="@+id/reasons" />
+        android:text="@string/reason_select_dialog"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
+        app:layout_constraintLeft_toLeftOf="@+id/scrollView" />
 </android.support.constraint.ConstraintLayout>

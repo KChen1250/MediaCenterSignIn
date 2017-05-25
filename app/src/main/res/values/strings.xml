@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Media Center Sign In</string>
     <string name="welcome_message">Hello, %1$s</string>
+    <string name="faculty_staff_select_welcome_message">Hello, First M. Last</string>
+    <string name="faculty_staff_select_dialog">Please select the faculty or staff member that sent you to the media center today.</string>
+    <string name="substitute_checkbox">A substitute sent me</string>
+    <string name="substitute_dialog">If a substitute sent you, select the normal instructor.</string>
+    <string name="reason_select_dialog">Please select the reason that you came to the media center today.</string>
 </resources>
