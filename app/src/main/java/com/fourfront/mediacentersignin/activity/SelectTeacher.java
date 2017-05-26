@@ -1,6 +1,7 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.annotation.IdRes;
 import android.support.v7.app.ActionBar;
@@ -32,6 +33,9 @@ public class SelectTeacher extends AppCompatActivity {
     private Button next;
     private CheckBox substitute;
     private TabHost tabhost;
+    private TextView t1;
+    private TextView t2;
+    private TextView t3;
     private RadioGroup rg1;
     private RadioGroup rg2;
     private RadioGroup rg3;
@@ -45,6 +49,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 0) {
                 rg2.clearCheck();
                 rg3.clearCheck();
+                t1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
             }
         }
@@ -56,6 +63,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 1) {
                 rg1.clearCheck();
                 rg3.clearCheck();
+                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
             }
         }
@@ -67,6 +77,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 2) {
                 rg1.clearCheck();
                 rg2.clearCheck();
+                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 next.setEnabled(true);
             }
         }
@@ -106,34 +119,33 @@ public class SelectTeacher extends AppCompatActivity {
 
     private void initializeTabs() {
         tabhost.setup();
-        int size = 24;
 
         TabHost.TabSpec spec = tabhost.newTabSpec("sem1");
         spec.setContent(R.id.sem1);
-        TextView tab1 = new TextView(this);
-        tab1.setTextSize(size);
-        tab1.setText("Semester 1");
-        tab1.setGravity(Gravity.CENTER);
         spec.setIndicator("Semester 1");
         tabhost.addTab(spec);
 
         spec = tabhost.newTabSpec("sem2");
         spec.setContent(R.id.sem2);
-        TextView tab2 = new TextView(this);
-        tab2.setTextSize(size);
-        tab2.setText("Semester 2");
-        tab2.setGravity(Gravity.CENTER);
         spec.setIndicator("Semester 2");
         tabhost.addTab(spec);
 
         spec = tabhost.newTabSpec("other");
         spec.setContent(R.id.other);
-        TextView other = new TextView(this);
-        other.setTextSize(size);
-        other.setText("Other");
-        other.setGravity(Gravity.CENTER);
         spec.setIndicator("Other");
         tabhost.addTab(spec);
+
+        t1 = (TextView) tabhost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
+        t2 = (TextView) tabhost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
+        t3 = (TextView) tabhost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
+
+        int size = 18;
+        t1.setTextSize(size);
+        t1.setGravity(Gravity.CENTER);
+        t2.setTextSize(size);
+        t2.setGravity(Gravity.CENTER);
+        t3.setTextSize(size);
+        t3.setGravity(Gravity.CENTER);
     }
 
     private void addRadioButtons() {
@@ -178,7 +190,6 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setPadding(10, 0, 0, 10);
         rb.setTextSize(22);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
-        //rGroup.addView(rb);
         rg.addView(rb);
     }
 

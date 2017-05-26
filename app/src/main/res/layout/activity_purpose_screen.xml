@@ -27,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:enabled="false"
         android:onClick="sendInfoDone"
-        android:text="Finish"
+        android:text="@string/finish_button"
         android:textSize="20sp"
         app:layout_constraintRight_toRightOf="@+id/scrollView"
         app:layout_constraintTop_toBottomOf="@+id/scrollView" />
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Almost done now"
+        android:text="@string/purpose_dialog"
         android:textSize="45sp"
         android:textAppearance="@style/TextAppearance.AppCompat"
         app:layout_constraintBottom_toTopOf="@+id/textView6"

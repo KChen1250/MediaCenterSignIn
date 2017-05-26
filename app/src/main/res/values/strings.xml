@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Media Center Sign In</string>
     <string name="welcome_message">Hello, %1$s</string>
+    <string name="hello">Hello</string>
+    <string name="welcome_dialog">To sign in, please enter your six-digit student ID.</string>
+    <string name="next_button">Next</string>
+    <string name="finish_button">Finish</string>
     <string name="faculty_staff_select_welcome_message">Hello, First M. Last</string>
     <string name="faculty_staff_select_dialog">Please select the faculty or staff member that sent you to the media center today.</string>
     <string name="substitute_checkbox">A substitute sent me</string>
     <string name="substitute_dialog">If a substitute sent you, select your normal instructor and tap the checkbox below.</string>
     <string name="reason_select_dialog">Please select the reason that you came to the media center today.</string>
+    <string name="purpose_dialog">Almost done now</string>
 </resources>
