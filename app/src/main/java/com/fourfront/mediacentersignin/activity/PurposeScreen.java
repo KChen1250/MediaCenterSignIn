@@ -81,7 +81,7 @@ public class PurposeScreen extends AppCompatActivity {
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
-        rb.setPadding(10, 0, 0, 10);
+        rb.setPadding(20, 0, 0, 10);
         rb.setTextSize(22);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rGroup.addView(rb);

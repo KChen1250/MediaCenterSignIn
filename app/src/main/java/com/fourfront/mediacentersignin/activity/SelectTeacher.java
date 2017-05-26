@@ -1,15 +1,17 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Environment;
 import android.support.annotation.IdRes;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
@@ -39,6 +41,9 @@ public class SelectTeacher extends AppCompatActivity {
     private RadioGroup rg1;
     private RadioGroup rg2;
     private RadioGroup rg3;
+    private int currentTab;
+    private View previousView;
+    private View currentView;
 
     private String selectedFirst;
     private String selectedLast;
@@ -49,9 +54,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 0) {
                 rg2.clearCheck();
                 rg3.clearCheck();
-                t1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 next.setEnabled(true);
             }
         }
@@ -63,9 +68,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 1) {
                 rg1.clearCheck();
                 rg3.clearCheck();
-                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 next.setEnabled(true);
             }
         }
@@ -77,9 +82,9 @@ public class SelectTeacher extends AppCompatActivity {
             if (tabhost.getCurrentTab() == 2) {
                 rg1.clearCheck();
                 rg2.clearCheck();
-                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
             }
         }
@@ -115,6 +120,27 @@ public class SelectTeacher extends AppCompatActivity {
         rg1.setOnCheckedChangeListener(m1);
         rg2.setOnCheckedChangeListener(m2);
         rg3.setOnCheckedChangeListener(m3);
+
+        currentTab = 0;
+        previousView = tabhost.getCurrentView();
+
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            public void onTabChanged(String tabId) {
+                currentView = tabhost.getCurrentView();
+                if (tabhost.getCurrentTab() > currentTab)
+                {
+                    previousView.setAnimation(outToLeftAnimation());
+                    currentView.setAnimation(inFromRightAnimation());
+                }
+                else
+                {
+                    previousView.setAnimation(outToRightAnimation());
+                    currentView.setAnimation(inFromLeftAnimation());
+                }
+                previousView = currentView;
+                currentTab = tabhost.getCurrentTab();
+            }
+        });
     }
 
     private void initializeTabs() {
@@ -142,10 +168,13 @@ public class SelectTeacher extends AppCompatActivity {
         int size = 20;
         t1.setTextSize(size);
         t1.setGravity(Gravity.CENTER);
+        t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
         t2.setTextSize(size);
         t2.setGravity(Gravity.CENTER);
+        t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
         t3.setTextSize(size);
         t3.setGravity(Gravity.CENTER);
+        t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
     }
 
     private void addRadioButtons() {
@@ -187,10 +216,61 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
-        rb.setPadding(10, 0, 0, 10);
+        rb.setPadding(20, 0, 0, 10);
         rb.setTextSize(22);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rg.addView(rb);
+    }
+
+    private Animation inFromRightAnimation() {
+        Animation inFromRight = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f);
+        return setProperties(inFromRight);
+    }
+
+    /**
+     * Custom animation that animates out to the right
+     *
+     * @return Animation the Animation object
+     */
+    private Animation outToRightAnimation() {
+        Animation outToRight = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f);
+        return setProperties(outToRight);
+    }
+
+    /**
+     * Custom animation that animates in from left
+     *
+     * @return Animation the Animation object
+     */
+    private Animation inFromLeftAnimation() {
+        Animation inFromLeft = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1.0f, Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f);
+        return setProperties(inFromLeft);
+    }
+
+    /**
+     * Custom animation that animates out to the left
+     *
+     * @return Animation the Animation object
+     */
+    private Animation outToLeftAnimation() {
+        Animation outtoLeft = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, -1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f);
+        return setProperties(outtoLeft);
+    }
+
+    /**
+     * Helper method that sets some common properties
+     * @param animation the animation to give common properties
+     * @return the animation with common properties
+     */
+    private Animation setProperties(Animation animation) {
+        animation.setDuration(280);
+        //animation.setInterpolator(new LinearOutSlowInInterpolator());
+        animation.setInterpolator(new FastOutSlowInInterpolator());
+        return animation;
     }
 
     public void nextButton(View view) {
