@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:text="@string/faculty_staff_select_dialog"
         android:textSize="24sp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tabhost"
         app:layout_constraintLeft_toLeftOf="@+id/tabhost" />
 
