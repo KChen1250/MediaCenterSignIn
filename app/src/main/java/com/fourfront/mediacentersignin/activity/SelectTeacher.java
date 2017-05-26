@@ -139,7 +139,7 @@ public class SelectTeacher extends AppCompatActivity {
         t2 = (TextView) tabhost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
         t3 = (TextView) tabhost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
 
-        int size = 18;
+        int size = 20;
         t1.setTextSize(size);
         t1.setGravity(Gravity.CENTER);
         t2.setTextSize(size);
