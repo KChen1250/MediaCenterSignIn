@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ public class SelectTeacher extends AppCompatActivity {
     private TextView name;
     private RadioGroup rGroup;
     private Button next;
+    private CheckBox substitute;
 
     private String selectedFirst;
     private String selectedLast;
@@ -55,11 +57,12 @@ public class SelectTeacher extends AppCompatActivity {
 
         name = (TextView) findViewById(R.id.nameText);
         next = (Button) findViewById(R.id.next);
+        substitute = (CheckBox) findViewById(R.id.checkBox);
+        substitute.setTextColor(getResources().getColorStateList(R.color.check_box_style));
 
         name.setText(getString(R.string.welcome_message, student.getFullName()));
 
         addRadioButtons();
-
         rGroup.setOnCheckedChangeListener(m);
     }
 
