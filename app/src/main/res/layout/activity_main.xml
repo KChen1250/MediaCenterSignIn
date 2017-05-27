@@ -21,60 +21,53 @@
         app:title="Media Center Sign In"
         app:titleTextColor="@color/colorBackground" />
 
-    <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/hello"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="80sp"
+        app:layout_constraintBottom_toTopOf="@+id/signinDialog"
+        app:layout_constraintLeft_toLeftOf="@+id/signinDialog"
+        android:layout_marginLeft="0dp" />
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:enabled="false"
+        android:onClick="nextButton"
+        android:text="@string/next_button"
+        android:textSize="20sp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        app:layout_constraintBottom_toBottomOf="@+id/enterID"
+        app:layout_constraintRight_toRightOf="@+id/signinDialog" />
+
+    <TextView
+        android:id="@+id/signinDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_dialog"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintVertical_bias="0.212">
+        android:layout_marginTop="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
-        <TextView
-            android:id="@+id/hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="@string/hello"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="70sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintLeft_toLeftOf="@+id/textView" />
-
-        <EditText
-            android:id="@+id/enterID"
-            android:layout_width="220dp"
-            android:layout_height="85dp"
-            android:layout_marginTop="24dp"
-            android:ems="10"
-            android:gravity="left"
-            android:inputType="number"
-            android:maxLength="6"
-            android:textSize="60sp"
-            app:layout_constraintLeft_toLeftOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome_dialog"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/next"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:onClick="nextButton"
-            android:text="@string/next_button"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/enterID"
-            app:layout_constraintRight_toRightOf="@+id/textView" />
-    </android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/enterID"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="left"
+        android:inputType="number"
+        android:maxLength="6"
+        android:textSize="65sp"
+        app:layout_constraintLeft_toLeftOf="@+id/signinDialog"
+        app:layout_constraintTop_toBottomOf="@+id/signinDialog" />
 
 </android.support.constraint.ConstraintLayout>

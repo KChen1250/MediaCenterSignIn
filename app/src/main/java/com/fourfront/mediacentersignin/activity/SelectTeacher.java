@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -41,23 +44,28 @@ public class SelectTeacher extends AppCompatActivity {
     private RadioGroup rg1;
     private RadioGroup rg2;
     private RadioGroup rg3;
+    private Spinner sp;
+    private int selectedTab;
     private int currentTab;
     private View previousView;
     private View currentView;
 
-    private String selectedFirst;
-    private String selectedLast;
+    private String selectedInstructor;
+    private boolean substituteCheck;
+    private ArrayList<String[]> teacherInfo;
 
     private RadioGroup.OnCheckedChangeListener m1 = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             if (tabhost.getCurrentTab() == 0) {
+                selectedTab = 0;
                 rg2.clearCheck();
                 rg3.clearCheck();
                 t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 next.setEnabled(true);
+                sp.setEnabled(false);
             }
         }
     };
@@ -66,12 +74,14 @@ public class SelectTeacher extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             if (tabhost.getCurrentTab() == 1) {
+                selectedTab = 1;
                 rg1.clearCheck();
                 rg3.clearCheck();
                 t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 next.setEnabled(true);
+                sp.setEnabled(false);
             }
         }
     };
@@ -80,12 +90,18 @@ public class SelectTeacher extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             if (tabhost.getCurrentTab() == 2) {
+                selectedTab = 2;
                 rg1.clearCheck();
                 rg2.clearCheck();
                 t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
+                if (((RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId())).getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
+                    sp.setEnabled(true);
+                } else {
+                    sp.setEnabled(false);
+                }
             }
         }
     };
@@ -112,6 +128,8 @@ public class SelectTeacher extends AppCompatActivity {
         tabhost = (TabHost) findViewById(R.id.tabhost);
 
         substitute.setTextColor(getResources().getColorStateList(R.color.check_box_style));
+        substitute.setPadding(6, 0, 0, 0);
+        substitute.setGravity(Gravity.TOP);
         name.setText(getString(R.string.welcome_message, student.getFullName()));
 
         initializeTabs();
@@ -121,6 +139,7 @@ public class SelectTeacher extends AppCompatActivity {
         rg2.setOnCheckedChangeListener(m2);
         rg3.setOnCheckedChangeListener(m3);
 
+        selectedTab = 0;
         currentTab = 0;
         previousView = tabhost.getCurrentView();
 
@@ -187,17 +206,17 @@ public class SelectTeacher extends AppCompatActivity {
         int id = 1;
         for (int i = 0; i < teachers.size(); i++) {
             if (semesters.get(i).equals("S1")) {
-                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg1);
+                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg1, 10);
             } else {
-                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg2);
+                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg2, 10);
             }
         }
-        addRadioButton(counselor + "\nCOUNSELING", id++, rg3);
+        addRadioButton(counselor + "\nCOUNSELING", id++, rg3, 10);
 
         String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS + "/MediaCenterSignIn/extra_staff.txt";
         try (FileReader fr = new FileReader(path);
              BufferedReader br = new BufferedReader(fr)) {
-            for (String line = null; (line = br.readLine()) != null;) {
+            for (String line; (line = br.readLine()) != null;) {
                 extraStaff.add(line);
             }
         } catch (IOException e) {
@@ -207,12 +226,36 @@ public class SelectTeacher extends AppCompatActivity {
         String[] split;
         for (String i: extraStaff) {
             split = i.substring(1, i.length() - 1).split("\",\"", -1);
-            addRadioButton(split[0] + "\n" + split[1].toUpperCase(), id++, rg3);
+            addRadioButton(split[0] + "\n" + split[1].toUpperCase(), id++, rg3, 10);
         }
+        addRadioButton(getResources().getString(R.string.other_instructor_dialog), id++, rg3, 0);
+        setSpinner();
     }
 
-    private void addRadioButton(String str, int id, RadioGroup rg) {
+    private void addRadioButton(String str, int id, RadioGroup rg, int pad) {
         RadioButton rb = new RadioButton(SelectTeacher.this);
+        rb.setText(str);
+        rb.setId(id);
+        rb.setGravity(Gravity.TOP);
+        rb.setPadding(20, 0, 0, pad);
+        rb.setTextSize(22);
+        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
+        rg.addView(rb);
+        rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+    }
+
+    private void setSpinner() {
+        sp = new Spinner(SelectTeacher.this);
+        String[] names = getAllTeachers().toArray(new String[0]);;
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, names);
+        sp.setAdapter(adapter);
+        sp.setPadding(42, 0, 0, 0);
+        //sp.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
+        sp.setEnabled(false);
+        rg3.addView(sp);
+
+
+        /*RadioButton rb = new RadioButton(SelectTeacher.this);
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
@@ -220,6 +263,28 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setTextSize(22);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rg.addView(rb);
+        rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;*/
+    }
+
+    private ArrayList<String> getAllTeachers() {
+        teacherInfo = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<>();
+        String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS + "/MediaCenterSignIn/emails.txt";
+
+        try (FileReader fr = new FileReader(path);
+             BufferedReader br = new BufferedReader(fr)) {
+            for (String line; (line = br.readLine()) != null;) {
+                teacherInfo.add(line.substring(1, line.length() - 1).split("\",\"", -1));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (String[] line: teacherInfo) {
+            names.add(line[0]);
+        }
+
+        return names;
     }
 
     private Animation inFromRightAnimation() {
@@ -267,17 +332,42 @@ public class SelectTeacher extends AppCompatActivity {
      * @return the animation with common properties
      */
     private Animation setProperties(Animation animation) {
-        animation.setDuration(280);
-        //animation.setInterpolator(new LinearOutSlowInInterpolator());
+        animation.setDuration(280);     // the "sweet spot" of animation times
         animation.setInterpolator(new FastOutSlowInInterpolator());
         return animation;
     }
 
     public void nextButton(View view) {
+        substituteCheck = substitute.isChecked();
+
+        RadioButton rb;
+        System.out.println(substituteCheck);
+        System.out.println(selectedTab);
+
+        switch (selectedTab) {
+            case 0:
+                rb = (RadioButton) rg1.findViewById(rg1.getCheckedRadioButtonId());
+                selectedInstructor = rb.getText().toString().split("\n")[0];
+                break;
+            case 1:
+                rb = (RadioButton) rg2.findViewById(rg2.getCheckedRadioButtonId());
+                selectedInstructor = rb.getText().toString().split("\n")[0];
+                break;
+            default:
+                rb = (RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId());
+                if (rb.getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
+                    selectedInstructor = sp.getSelectedItem().toString();
+                } else {
+                    selectedInstructor = rb.getText().toString().split("\n")[0];
+                }
+                break;
+        }
+
         Intent intent = new Intent(this, PurposeScreen.class);
         intent.putExtra("STUDENT", student);
-        intent.putExtra("SELFIRST", selectedFirst);
-        intent.putExtra("SELLAST", selectedLast);
+        intent.putExtra("INSTRUCTOR", selectedInstructor);
+        intent.putExtra("SUBSTITUTE", substituteCheck);
+        intent.putExtra("INFO", teacherInfo);
         startActivity(intent);
     }
 }

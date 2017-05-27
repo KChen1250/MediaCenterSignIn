@@ -108,7 +108,7 @@ public class Student implements Serializable {
 
         try (FileReader fr = new FileReader(path);
              BufferedReader br = new BufferedReader(fr)) {
-            for (String line = null; (line = br.readLine()) != null;) {
+            for (String line; (line = br.readLine()) != null;) {
                 lines.add(line);
             }
         } catch (IOException e) {

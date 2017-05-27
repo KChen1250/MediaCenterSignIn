@@ -9,21 +9,30 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourfront.mediacentersignin.R;
 import com.fourfront.mediacentersignin.helper.Student;
+
+import java.util.ArrayList;
 
 import static com.fourfront.mediacentersignin.R.id.next;
 
 public class PurposeScreen extends AppCompatActivity {
 
     private Student student;
-    private RadioGroup rGroup;
+    private String instructor;
+    private boolean substitute;
+
+    private RadioGroup rgroup;
     private Button finish;
+    private TextView test;
+    private ArrayList<String[]> emails;
 
     private RadioGroup.OnCheckedChangeListener m = new RadioGroup.OnCheckedChangeListener() {
         @Override
@@ -39,6 +48,9 @@ public class PurposeScreen extends AppCompatActivity {
 
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("STUDENT");
+        instructor = (String) intent.getStringExtra("INSTRUCTOR");
+        substitute = (boolean) intent.getBooleanExtra("SUBSTITUTE", false);
+        emails = (ArrayList) intent.getStringArrayListExtra("INFO");
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -46,8 +58,11 @@ public class PurposeScreen extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         finish = (Button) findViewById(R.id.finish);
-        rGroup = (RadioGroup) findViewById(R.id.listOfReasons);
-        rGroup.setOnCheckedChangeListener(m);
+        rgroup = (RadioGroup) findViewById(R.id.listOfReasons);
+        test = ((TextView) findViewById(R.id.details));
+        test.setText(getString(R.string.details_dialog, instructor + (substitute ? " (substitute)" : "")));
+
+        rgroup.setOnCheckedChangeListener(m);
 
         addRadioButton("Reason 1",  1);
         addRadioButton("Reason 2",  2);
@@ -66,6 +81,19 @@ public class PurposeScreen extends AppCompatActivity {
         addRadioButton("Reason 15",  15);
     }
 
+
+    private void addRadioButton(String str, int id) {
+        RadioButton rb = new RadioButton(PurposeScreen.this);
+        rb.setText(str);
+        rb.setId(id);
+        rb.setGravity(Gravity.TOP);
+        rb.setPadding(20, 0, 0, 10);
+        rb.setTextSize(22);
+        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
+        rgroup.addView(rb);
+        rb.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -76,20 +104,10 @@ public class PurposeScreen extends AppCompatActivity {
         return true;
     }
 
-    private void addRadioButton(String str, int id) {
-        RadioButton rb = new RadioButton(PurposeScreen.this);
-        rb.setText(str);
-        rb.setId(id);
-        rb.setGravity(Gravity.TOP);
-        rb.setPadding(20, 0, 0, 10);
-        rb.setTextSize(22);
-        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
-        rGroup.addView(rb);
-    }
-
     public void sendInfoDone(View view) {
         Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();
-        student.saveToFile("Teacher", "No", "Test reason");
+        RadioButton rb = (RadioButton) rgroup.findViewById(rgroup.getCheckedRadioButtonId());
+        student.saveToFile(instructor, substitute ? "Yes" : "No", rb.getText().toString());
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
