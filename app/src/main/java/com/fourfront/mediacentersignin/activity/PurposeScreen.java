@@ -17,12 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourfront.mediacentersignin.R;
+import com.fourfront.mediacentersignin.helper.SendMail;
 import com.fourfront.mediacentersignin.helper.Student;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 
-import static com.fourfront.mediacentersignin.R.id.next;
-
+/**
+ * Purpose selection screen
+ *
+ * @author Kevin Chen
+ *
+ * Created May 2017, finished June 2017
+ * Poolesville High School Client Project
+ */
 public class PurposeScreen extends AppCompatActivity {
 
     private Student student;
@@ -46,16 +58,19 @@ public class PurposeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purpose_screen);
 
-        Intent intent = getIntent();
-        student = (Student) intent.getSerializableExtra("STUDENT");
-        instructor = (String) intent.getStringExtra("INSTRUCTOR");
-        substitute = (boolean) intent.getBooleanExtra("SUBSTITUTE", false);
-        emails = (ArrayList) intent.getStringArrayListExtra("INFO");
-
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
+
+        // display the up arrow button
         ab.setDisplayHomeAsUpEnabled(true);
+
+        // get data from previous Activity
+        Intent intent = getIntent();
+        student = (Student) intent.getSerializableExtra("STUDENT");
+        instructor = intent.getStringExtra("INSTRUCTOR");
+        substitute = intent.getBooleanExtra("SUBSTITUTE", false);
+        emails = (ArrayList) intent.getStringArrayListExtra("INFO");
 
         finish = (Button) findViewById(R.id.finish);
         rgroup = (RadioGroup) findViewById(R.id.listOfReasons);
@@ -64,6 +79,7 @@ public class PurposeScreen extends AppCompatActivity {
 
         rgroup.setOnCheckedChangeListener(m);
 
+        // add purpose RadioButtons (not done yet)
         addRadioButton("Reason 1",  1);
         addRadioButton("Reason 2",  2);
         addRadioButton("Reason 3",  3);
@@ -81,7 +97,12 @@ public class PurposeScreen extends AppCompatActivity {
         addRadioButton("Reason 15",  15);
     }
 
-
+    /**
+     * Add individual RadioButton to global RadioGroup rgroup
+     *
+     * @param str   Text to be displayed
+     * @param id    ID of RadioButton
+     */
     private void addRadioButton(String str, int id) {
         RadioButton rb = new RadioButton(PurposeScreen.this);
         rb.setText(str);
@@ -94,6 +115,10 @@ public class PurposeScreen extends AppCompatActivity {
         rb.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
     }
 
+    /**
+     * Override onOptionsItemSelected, so that data will be passed to SelectTeacher if user
+     * presses the up arrow
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -104,11 +129,48 @@ public class PurposeScreen extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Send a confirmation email to the speficied teacher / staff
+     *
+     * @param email address to send to
+     */
+    public void sendEmail(String email) {
+        String subject = "Poolesville Media Center Notification [Please Reply]";
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd");
+        String message = "This message is to notify you that your student, " + student.getFullName() +
+                         " was sent to the media center at " + sdf.format(time) + ".\n\n" +
+                         "Please reply with \"Yes\" or \"No\" to confirm.\n\n\n" +
+                         "(This message was automatically sent from the Poolesville Media Center)";
+
+        // create a new SendMail object, which sends the actual email
+        SendMail sm = new SendMail(email, subject, message);
+        sm.execute();
+    }
+
+    /**
+     * Returns the email corresponding to the selected teacher / staff
+     *
+     * @return email corresponding to teacher / staff
+     */
+    public String getEmail() {
+        for (String[] i: emails) {
+            if (i[0].equals(instructor)) {
+                return i[1];
+            }
+        }
+        return null;
+    }
+
     public void sendInfoDone(View view) {
-        Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();
         RadioButton rb = (RadioButton) rgroup.findViewById(rgroup.getCheckedRadioButtonId());
         student.saveToFile(instructor, substitute ? "Yes" : "No", rb.getText().toString());
 
+        // sendEmail(getEmail()); replace with this line on final version
+        sendEmail("kchen1250@gmail.com");
+
+        // display Toast and return to initial screen
+        Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

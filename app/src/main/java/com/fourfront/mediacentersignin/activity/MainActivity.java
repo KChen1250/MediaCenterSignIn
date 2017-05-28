@@ -1,7 +1,6 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,14 +16,18 @@ import android.widget.Toast;
 import com.fourfront.mediacentersignin.R;
 import com.fourfront.mediacentersignin.helper.Student;
 
-import java.io.FileOutputStream;
-
+/**
+ * Main activity of sign in application
+ *
+ * @author Kevin Chen
+ *
+ * Created May 2017, finished June 2017
+ * Poolesville High School Client Project
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Button next;
     private EditText id;
-    public String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/MediaCenterSignIn";
-    FileOutputStream outputStream;
 
     private TextWatcher m = new TextWatcher() {
         @Override
@@ -37,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable editable) {
-            // check Fields For Empty Values
             checkFieldsForEmptyValues();
         }
     };
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         id = (EditText) findViewById(R.id.enterID);
         id.addTextChangedListener(m);
 
+        // prevents the copy / paste dialog from showing up when highlighting text
         id.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;
@@ -81,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void nextButton(View view) {
         Student student = new Student(id.getText().toString());
+
+        // go to next Activity if student is found in database, show Toast if otherwise
         if (student.isStudent()) {
             Intent intent = new Intent(this, SelectTeacher.class);
             intent.putExtra("STUDENT", student);

@@ -30,6 +30,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Teacher / Staff selection screen
+ *
+ * @author Kevin Chen
+ *
+ * Created May 2017, finished June 2017
+ * Poolesville High School Client Project
+ */
 public class SelectTeacher extends AppCompatActivity {
 
     private Student student;
@@ -58,6 +66,7 @@ public class SelectTeacher extends AppCompatActivity {
         @Override
         public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
             if (tabhost.getCurrentTab() == 0) {
+                // clear other tabs and set current tab to bold
                 selectedTab = 0;
                 rg2.clearCheck();
                 rg3.clearCheck();
@@ -97,6 +106,7 @@ public class SelectTeacher extends AppCompatActivity {
                 t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
+                // enable the spinner when the last radiobutton is pressed, disable if otherwise
                 if (((RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId())).getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
                     sp.setEnabled(true);
                 } else {
@@ -114,8 +124,11 @@ public class SelectTeacher extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         ActionBar ab = getSupportActionBar();
+
+        // display the up arrow button
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // get data from previous Activity
         Intent intent = getIntent();
         student = (Student) intent.getSerializableExtra("STUDENT");
 
@@ -130,6 +143,8 @@ public class SelectTeacher extends AppCompatActivity {
         substitute.setTextColor(getResources().getColorStateList(R.color.check_box_style));
         substitute.setPadding(6, 0, 0, 0);
         substitute.setGravity(Gravity.TOP);
+
+        // set welcome text with student name
         name.setText(getString(R.string.welcome_message, student.getFullName()));
 
         initializeTabs();
@@ -143,6 +158,7 @@ public class SelectTeacher extends AppCompatActivity {
         currentTab = 0;
         previousView = tabhost.getCurrentView();
 
+        // set animations when switching tabs
         tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             public void onTabChanged(String tabId) {
                 currentView = tabhost.getCurrentView();
@@ -162,6 +178,9 @@ public class SelectTeacher extends AppCompatActivity {
         });
     }
 
+    /**
+     * Format the three tabs and add all RadioButtons
+     */
     private void initializeTabs() {
         tabhost.setup();
 
@@ -180,6 +199,7 @@ public class SelectTeacher extends AppCompatActivity {
         spec.setIndicator("Other");
         tabhost.addTab(spec);
 
+        // get TextViews of each tab so the formatting can be edited
         t1 = (TextView) tabhost.getTabWidget().getChildTabViewAt(0).findViewById(android.R.id.title);
         t2 = (TextView) tabhost.getTabWidget().getChildTabViewAt(1).findViewById(android.R.id.title);
         t3 = (TextView) tabhost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
@@ -196,6 +216,9 @@ public class SelectTeacher extends AppCompatActivity {
         t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
     }
 
+    /**
+     * Add teacher and other staff RadioButtons and add Spinner for all other teachers
+     */
     private void addRadioButtons() {
         ArrayList<String> teachers = student.getTeacherNames();
         ArrayList<String> courses = student.getCourses();
@@ -203,16 +226,18 @@ public class SelectTeacher extends AppCompatActivity {
         ArrayList<String> extraStaff = new ArrayList<>();
         String counselor = student.getCounselorName();
 
-        int id = 1;
         for (int i = 0; i < teachers.size(); i++) {
             if (semesters.get(i).equals("S1")) {
-                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg1, 10);
+                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), i, rg1, 10);
             } else {
-                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), id++, rg2, 10);
+                addRadioButton(teachers.get(i) + "\n" + courses.get(i).toUpperCase(), i, rg2, 10);
             }
         }
+
+        int id = 1;
         addRadioButton(counselor + "\nCOUNSELING", id++, rg3, 10);
 
+        // read extra staff file (like counselor and security) and add RadioButtons
         String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS + "/MediaCenterSignIn/extra_staff.txt";
         try (FileReader fr = new FileReader(path);
              BufferedReader br = new BufferedReader(fr)) {
@@ -232,6 +257,14 @@ public class SelectTeacher extends AppCompatActivity {
         setSpinner();
     }
 
+    /**
+     * Add individual RadioButton
+     *
+     * @param str   Text to be displayed
+     * @param id    ID of RadioButton
+     * @param rg    RadioGroup that the RadioButton will be put in
+     * @param pad   Padding between RadioButtons
+     */
     private void addRadioButton(String str, int id, RadioGroup rg, int pad) {
         RadioButton rb = new RadioButton(SelectTeacher.this);
         rb.setText(str);
@@ -244,28 +277,25 @@ public class SelectTeacher extends AppCompatActivity {
         rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
     }
 
+    /**
+     * Set the Spinner containing all the teachers / staff
+     */
     private void setSpinner() {
         sp = new Spinner(SelectTeacher.this);
-        String[] names = getAllTeachers().toArray(new String[0]);;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item, names);
+        String[] names = getAllTeachers().toArray(new String[0]);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, names);
         sp.setAdapter(adapter);
         sp.setPadding(42, 0, 0, 0);
-        //sp.setBackgroundColor(getResources().getColor(R.color.colorLightGray));
         sp.setEnabled(false);
         rg3.addView(sp);
-
-
-        /*RadioButton rb = new RadioButton(SelectTeacher.this);
-        rb.setText(str);
-        rb.setId(id);
-        rb.setGravity(Gravity.TOP);
-        rb.setPadding(20, 0, 0, 10);
-        rb.setTextSize(22);
-        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
-        rg.addView(rb);
-        rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;*/
     }
 
+    /**
+     * Read the list of teachers and their emails and send
+     * a list of all teachers / staff to setSpinner
+     *
+     * @return ArrayList containing all the teachers / staff
+     */
     private ArrayList<String> getAllTeachers() {
         teacherInfo = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
@@ -287,6 +317,11 @@ public class SelectTeacher extends AppCompatActivity {
         return names;
     }
 
+    /**
+     * Custom animation that animates om from the right
+     *
+     * @return Animation the Animation object
+     */
     private Animation inFromRightAnimation() {
         Animation inFromRight = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 1.0f, Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f, Animation.RELATIVE_TO_PARENT, 0.0f);
@@ -305,7 +340,7 @@ public class SelectTeacher extends AppCompatActivity {
     }
 
     /**
-     * Custom animation that animates in from left
+     * Custom animation that animates in from the left
      *
      * @return Animation the Animation object
      */
@@ -328,6 +363,7 @@ public class SelectTeacher extends AppCompatActivity {
 
     /**
      * Helper method that sets some common properties
+     *
      * @param animation the animation to give common properties
      * @return the animation with common properties
      */
@@ -339,11 +375,9 @@ public class SelectTeacher extends AppCompatActivity {
 
     public void nextButton(View view) {
         substituteCheck = substitute.isChecked();
-
         RadioButton rb;
-        System.out.println(substituteCheck);
-        System.out.println(selectedTab);
 
+        // get the string of the selected teacher
         switch (selectedTab) {
             case 0:
                 rb = (RadioButton) rg1.findViewById(rg1.getCheckedRadioButtonId());
@@ -363,6 +397,7 @@ public class SelectTeacher extends AppCompatActivity {
                 break;
         }
 
+        // pass student and click data to next Activity
         Intent intent = new Intent(this, PurposeScreen.class);
         intent.putExtra("STUDENT", student);
         intent.putExtra("INSTRUCTOR", selectedInstructor);
