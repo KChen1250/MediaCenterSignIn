@@ -235,7 +235,9 @@ public class SelectTeacher extends AppCompatActivity {
         }
 
         int id = 1;
-        addRadioButton(counselor + "\nCOUNSELING", id++, rg3, 10);
+        if (!counselor.equals(" ")) {
+            addRadioButton(counselor + "\nCOUNSELING", id++, rg3, 10);
+        }
 
         // read extra staff file (like counselor and security) and add RadioButtons
         String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS + "/MediaCenterSignIn/extra_staff.txt";

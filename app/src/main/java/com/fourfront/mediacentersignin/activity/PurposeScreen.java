@@ -139,9 +139,10 @@ public class PurposeScreen extends AppCompatActivity {
         Timestamp time = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd");
         String message = "This message is to notify you that your student, " + student.getFullName() +
-                         " was sent to the media center at " + sdf.format(time) + ".\n\n" +
+                         ", was sent to the media center at " + sdf.format(time) + ".\n\n" +
                          "Please reply with \"Yes\" or \"No\" to confirm.\n\n\n" +
-                         "(This message was automatically sent from the Poolesville Media Center)";
+                         "This message was automatically sent from the Poolesville Media Center. " +
+                         "If you have a question or problem, please contact the Media Center staff.";
 
         // create a new SendMail object, which sends the actual email
         SendMail sm = new SendMail(email, subject, message);

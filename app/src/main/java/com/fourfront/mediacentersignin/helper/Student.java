@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 
 /**
@@ -40,16 +41,24 @@ public class Student implements Serializable {
     private String CNSLRF;                  // counselor first
     private String CNSLRL;                  // counselor last
 
+    // list of positions of each variable in the database
+    private int CNSLRF_pos;
+    private int CNSLRL_pos;
+    private int CRSTITLE_pos;
+    private int DUR_pos;
+    private int ID_pos;
+    private int FIRST_pos;
+    private int MI_pos;
+    private int LAST_pos;
+    private int TCHF_pos;
+    private int TCHL_pos;
+
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS;
 
     public String getFullName() {
         return FULL_NAME;
-    }
-
-    public String[] getName() {
-        return new String[]{FIRST, MI, LAST};
     }
 
     public String getCounselorName() {
@@ -137,8 +146,19 @@ public class Student implements Serializable {
         System.out.println("Time:" + Timer.toc());
         Timer.tic();
 
-        // remove the header
-        lines.remove(0);
+        // read and remove the header
+        String[] header = lines.remove(0).split(",");
+        CNSLRF_pos = Arrays.asList(header).indexOf("CNSLRF");
+        CNSLRL_pos = Arrays.asList(header).indexOf("CNSLRL");
+        CRSTITLE_pos = Arrays.asList(header).indexOf("CRSTITLE");
+        DUR_pos = Arrays.asList(header).indexOf("DUR");
+        ID_pos = Arrays.asList(header).indexOf("ID");
+        FIRST_pos = Arrays.asList(header).indexOf("FIRST");
+        MI_pos = Arrays.asList(header).indexOf("MI");
+        LAST_pos = Arrays.asList(header).indexOf("LAST");
+        TCHF_pos = Arrays.asList(header).indexOf("TCHF");
+        TCHL_pos = Arrays.asList(header).indexOf("TCHL");
+
         return lines;
     }
 
@@ -153,9 +173,9 @@ public class Student implements Serializable {
         int hi = allStudents.size() - 1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
-            if (ID.compareTo(allStudents.get(mid).split("\",\"", -1)[6]) < 0) {
+            if (ID.compareTo(allStudents.get(mid).split("\",\"", -1)[ID_pos]) < 0) {
                 hi = mid - 1;
-            } else if (ID.compareTo(allStudents.get(mid).split("\",\"", -1)[6]) > 0) {
+            } else if (ID.compareTo(allStudents.get(mid).split("\",\"", -1)[ID_pos]) > 0) {
                 lo = mid + 1;
             } else {
                 return mid;
@@ -185,13 +205,13 @@ public class Student implements Serializable {
 
         // search backwards
         int i = index - 1;
-        while (i >= 0 && ID.equals(allStudents.get(i).split("\",\"", -1)[6])) {
+        while (i >= 0 && ID.equals(allStudents.get(i).split("\",\"", -1)[ID_pos])) {
             thisStudent.add(0, allStudents.get(i).substring(1, allStudents.get(i).length() - 1).split("\",\"", -1));
             i--;
         }
 
         // search forwards
-        while (index < allStudents.size() && ID.equals(allStudents.get(index).split("\",\"", -1)[6])) {
+        while (index < allStudents.size() && ID.equals(allStudents.get(index).split("\",\"", -1)[ID_pos])) {
             thisStudent.add(allStudents.get(index).substring(1, allStudents.get(index).length() - 1).split("\",\"", -1));
             index++;
         }
@@ -213,9 +233,9 @@ public class Student implements Serializable {
 
             String[] firstLine = info.get(0);
 
-            FIRST = firstLine[5];
-            MI = firstLine[8];
-            LAST = firstLine[7];
+            FIRST = firstLine[FIRST_pos];
+            MI = firstLine[MI_pos];
+            LAST = firstLine[LAST_pos];
 
             if (MI.isEmpty()) {
                 FULL_NAME = FIRST + " " + LAST;
@@ -229,14 +249,14 @@ public class Student implements Serializable {
             TCHL = new ArrayList<>();
 
             for (String[] element: info) {
-                CRSTITLE.add(element[3]);
-                DUR.add(element[4]);
-                TCHF.add(element[9]);
-                TCHL.add(element[10]);
+                CRSTITLE.add(element[CRSTITLE_pos]);
+                DUR.add(element[DUR_pos]);
+                TCHF.add(element[TCHF_pos]);
+                TCHL.add(element[TCHL_pos]);
             }
 
-            CNSLRF = firstLine[1];
-            CNSLRL = firstLine[2];
+            CNSLRF = firstLine[CNSLRF_pos];
+            CNSLRL = firstLine[CNSLRL_pos];
         }
     }
 }
