@@ -3,6 +3,7 @@ package com.fourfront.mediacentersignin.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ActionMode;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
 
         next = (Button) findViewById(R.id.next);
         id = (EditText) findViewById(R.id.enterID);
@@ -69,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
 
-            public void onDestroyActionMode(ActionMode mode) {
-            }
+            public void onDestroyActionMode(ActionMode mode) {}
 
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 return false;
@@ -80,6 +82,26 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // add a menu with an about button
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_about) {
+            Toast toastMessage = Toast.makeText(this, "Created by Kevin Chen, June 2017\nFourFront Technologies Client Project\n\nSource code:\nhttps://github.com/KChen1250/MediaCenterSignIn", Toast.LENGTH_SHORT);
+            toastMessage.show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void nextButton(View view) {

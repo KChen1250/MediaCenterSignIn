@@ -1,4 +1,5 @@
 <resources>
+    <string name="action_about">About</string>
     <string name="app_name">Media Center Sign In</string>
     <string name="welcome_message">Hello, %1$s</string>
     <string name="hello">Hello</string>
