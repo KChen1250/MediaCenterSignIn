@@ -2,13 +2,17 @@ package com.fourfront.mediacentersignin.helper;
 
 import android.os.Environment;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -127,27 +131,32 @@ public class Student implements Serializable {
      * @return      array of unprocessed data
      */
     private ArrayList<String> getListFromFile(String path) {
-        ArrayList<String> lines = new ArrayList<>();
 
-        Timer.tic();
-        System.out.println("starting to parse file. ##########################################################");
-
-        // read all lines from database
-        try (FileReader fr = new FileReader(path);
+        /* try (FileReader fr = new FileReader(path);
              BufferedReader br = new BufferedReader(fr)) {
             for (String line; (line = br.readLine()) != null;) {
                 lines.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        } */
 
-        System.out.println("done parsing file. continuing to split the entire thing. ##########################");
-        System.out.println("Time:" + Timer.toc());
-        Timer.tic();
+        // read all lines from database
+        StringWriter sb = new StringWriter();
+        char[] buffer = new char[1024*4];
+        int n;
+        try (FileReader fr = new FileReader(path)) {
+            while (-1 != (n = fr.read(buffer))) {
+                sb.write(buffer, 0, n);
+            }
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> lines = new ArrayList<>(Arrays.asList(sb.toString().split("\n")));
 
         // read and remove the header
-        String[] header = lines.remove(0).split(",");
+        String[] header = lines.remove(0).replace("\r", "").split(",");
         CNSLRF_pos = Arrays.asList(header).indexOf("CNSLRF");
         CNSLRL_pos = Arrays.asList(header).indexOf("CNSLRL");
         CRSTITLE_pos = Arrays.asList(header).indexOf("CRSTITLE");
@@ -195,10 +204,6 @@ public class Student implements Serializable {
         ArrayList<String[]> thisStudent = new ArrayList<>();
         int index = getStudentIndex(allStudents);
 
-        System.out.println("done finding student. ###############################################################");
-        System.out.println("Time:" + Timer.toc());
-        Timer.tic();
-
         if (index == -1) {
             return thisStudent;
         }
@@ -206,18 +211,14 @@ public class Student implements Serializable {
         // search backwards
         int i = index - 1;
         while (i >= 0 && ID.equals(allStudents.get(i).split("\",\"", -1)[ID_pos])) {
-            thisStudent.add(0, allStudents.get(i).substring(1, allStudents.get(i).length() - 1).split("\",\"", -1));
+            thisStudent.add(0, allStudents.get(i).substring(1, allStudents.get(i).length() - 2).split("\",\"", -1));
             i--;
         }
-
         // search forwards
         while (index < allStudents.size() && ID.equals(allStudents.get(index).split("\",\"", -1)[ID_pos])) {
-            thisStudent.add(allStudents.get(index).substring(1, allStudents.get(index).length() - 1).split("\",\"", -1));
+            thisStudent.add(allStudents.get(index).substring(1, allStudents.get(index).length() - 2).split("\",\"", -1));
             index++;
         }
-
-        System.out.println("parsed student. ######################################################################");
-        System.out.println("Time:" + Timer.toc());
 
         return thisStudent;
     }
@@ -259,17 +260,4 @@ public class Student implements Serializable {
             CNSLRL = firstLine[CNSLRL_pos];
         }
     }
-}
-
-class Timer{
-    private static long start_time;
-
-    public static double tic() {
-        return start_time = System.nanoTime();
-    }
-
-    public static double toc() {
-        return (System.nanoTime()-start_time)/1000000000.0;
-    }
-
 }
