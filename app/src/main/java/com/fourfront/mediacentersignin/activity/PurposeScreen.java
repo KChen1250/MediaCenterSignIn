@@ -106,7 +106,7 @@ public class PurposeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean checked = false;
-                for (int i = 1; i < reasons.getChildCount(); i ++) {
+                for (int i = 0; i < reasons.getChildCount(); i ++) {
                     if (((CheckBox) reasons.getChildAt(i)).isChecked()) {
                         checked = true;
                     }
@@ -166,7 +166,7 @@ public class PurposeScreen extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd");
         String message = "This message is to notify you that your student, " + student.getFullName() +
                          ", was sent to the media center at " + sdf.format(time) + ".\n\n" +
-                         "If you did not send the student to the library, please reply \"no\" to this email." +
+                         "If you did not send the student to the library, please reply \"no\" to this email. " +
                          "No action is needed if you allowed the student to go to the media center.\n\n\n" +
                          "This message was automatically sent from the Poolesville Media Center. " +
                          "If you have a question or problem, please contact the Media Center staff.";
@@ -192,7 +192,7 @@ public class PurposeScreen extends AppCompatActivity {
 
     public void sendInfoDone(View view) {
         ArrayList<String> reason = new ArrayList<>();
-        for (int i = 1; i < reasons.getChildCount(); i ++) {
+        for (int i = 0; i < reasons.getChildCount(); i ++) {
             if (((CheckBox) reasons.getChildAt(i)).isChecked()) {
                 reason.add(((CheckBox) reasons.getChildAt(i)).getText().toString());
             }
