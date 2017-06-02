@@ -205,8 +205,8 @@ public class PurposeScreen extends AppCompatActivity {
 
         student.saveToFile(instructor, substitute ? "Yes" : "No", joined);
 
-        //sendEmail(getEmail());
-        sendEmail("kchen1250@gmail.com"); // change for actual email sending
+        sendEmail(getEmail());
+        // sendEmail("kchen1250@gmail.com"); // change for actual email sending
 
         // display Toast and return to initial screen
         Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();

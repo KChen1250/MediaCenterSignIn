@@ -53,6 +53,7 @@ public class SelectTeacher extends AppCompatActivity {
     private RadioGroup rg2;
     private RadioGroup rg3;
     private Spinner sp;
+
     private int selectedTab;
     private int currentTab;
     private View previousView;
@@ -162,13 +163,11 @@ public class SelectTeacher extends AppCompatActivity {
         tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             public void onTabChanged(String tabId) {
                 currentView = tabhost.getCurrentView();
-                if (tabhost.getCurrentTab() > currentTab)
-                {
+                if (tabhost.getCurrentTab() > currentTab) {
                     previousView.setAnimation(outToLeftAnimation());
                     currentView.setAnimation(inFromRightAnimation());
                 }
-                else
-                {
+                else {
                     previousView.setAnimation(outToRightAnimation());
                     currentView.setAnimation(inFromLeftAnimation());
                 }
@@ -389,7 +388,7 @@ public class SelectTeacher extends AppCompatActivity {
                 rb = (RadioButton) rg2.findViewById(rg2.getCheckedRadioButtonId());
                 selectedInstructor = rb.getText().toString().split("\n")[0];
                 break;
-            default:
+            default:    // case 2
                 rb = (RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId());
                 if (rb.getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
                     selectedInstructor = sp.getSelectedItem().toString();

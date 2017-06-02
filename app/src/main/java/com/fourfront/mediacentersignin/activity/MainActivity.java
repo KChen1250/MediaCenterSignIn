@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        // self promotion
         if (id == R.id.action_about) {
             Toast toastMessage = Toast.makeText(this, "Created by Kevin Chen, June 2017\nFourFront Technologies Client Project\n\nSource code:\nhttps://github.com/KChen1250/MediaCenterSignIn", Toast.LENGTH_SHORT);
             toastMessage.show();
