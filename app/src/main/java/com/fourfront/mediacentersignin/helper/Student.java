@@ -131,16 +131,6 @@ public class Student implements Serializable {
      * @return      array of unprocessed data
      */
     private ArrayList<String> getListFromFile(String path) {
-
-        /* try (FileReader fr = new FileReader(path);
-             BufferedReader br = new BufferedReader(fr)) {
-            for (String line; (line = br.readLine()) != null;) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
-
         // read all lines from database
         StringWriter sb = new StringWriter();
         char[] buffer = new char[1024*4];

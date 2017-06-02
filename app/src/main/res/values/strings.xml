@@ -11,7 +11,7 @@
     <string name="other_instructor_dialog">Other, please select one from below:</string>
     <string name="substitute_checkbox">A substitute sent me</string>
     <string name="substitute_dialog">If a substitute sent you, select your normal instructor and tap the checkbox below.</string>
-    <string name="reason_select_dialog">Please select the reason that you came to the media center today.</string>
+    <string name="reason_select_dialog">Why did you come to the media center?\nPlease select all the reasons that apply.</string>
     <string name="purpose_dialog">Almost done now</string>
     <string name="details_dialog">You selected %1$s</string>
 </resources>

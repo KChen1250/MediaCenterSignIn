@@ -1,7 +1,7 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
-import android.support.annotation.IdRes;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +20,9 @@ import com.fourfront.mediacentersignin.R;
 import com.fourfront.mediacentersignin.helper.SendMail;
 import com.fourfront.mediacentersignin.helper.Student;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -41,17 +44,10 @@ public class PurposeScreen extends AppCompatActivity {
     private String instructor;
     private boolean substitute;
 
-    private RadioGroup rgroup;
+    private LinearLayout reasons;
     private Button finish;
-    private TextView test;
+    private TextView details;
     private ArrayList<String[]> emails;
-
-    private RadioGroup.OnCheckedChangeListener m = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-            finish.setEnabled(true);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,51 +69,81 @@ public class PurposeScreen extends AppCompatActivity {
         emails = (ArrayList) intent.getStringArrayListExtra("INFO");
 
         finish = (Button) findViewById(R.id.finish);
-        rgroup = (RadioGroup) findViewById(R.id.listOfReasons);
-        test = ((TextView) findViewById(R.id.details));
-        test.setText(getString(R.string.details_dialog, instructor + (substitute ? " (substitute)" : "")));
+        reasons = (LinearLayout) findViewById(R.id.listofreasons);
+        details = (TextView) findViewById(R.id.details);
+        details.setText(getString(R.string.details_dialog, instructor + (substitute ? " (substitute)" : "")));
 
-        rgroup.setOnCheckedChangeListener(m);
-
-        // add purpose RadioButtons (not done yet)
-        addRadioButton("Reason 1",  1);
-        addRadioButton("Reason 2",  2);
-        addRadioButton("Reason 3",  3);
-        addRadioButton("Reason 4",  4);
-        addRadioButton("Reason 5",  5);
-        addRadioButton("Reason 6",  6);
-        addRadioButton("Reason 7",  7);
-        addRadioButton("Reason 8",  8);
-        addRadioButton("Reason 9",  9);
-        addRadioButton("Reason 10",  10);
-        addRadioButton("Reason 11",  11);
-        addRadioButton("Reason 12",  12);
-        addRadioButton("Reason 13",  13);
-        addRadioButton("Reason 14",  14);
-        addRadioButton("Reason 15",  15);
+        // add purpose check boxes
+        addCheckBoxes();
     }
 
     /**
-     * Add individual RadioButton to global RadioGroup rgroup
+     * Programatically add list of purposes to ListView
+     */
+    private void addCheckBoxes() {
+        ArrayList<String> purposes = getPurposes();
+
+        int id = 1;
+        for (String i: purposes) {
+            addCheckBox(i, id++);
+        }
+    }
+
+    /**
+     * Add individual CheckBox
      *
      * @param str   Text to be displayed
-     * @param id    ID of RadioButton
+     * @param id    ID of CheckBox
      */
-    private void addRadioButton(String str, int id) {
-        RadioButton rb = new RadioButton(PurposeScreen.this);
-        rb.setText(str);
-        rb.setId(id);
-        rb.setGravity(Gravity.TOP);
-        rb.setPadding(20, 0, 0, 10);
-        rb.setTextSize(22);
-        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
-        rgroup.addView(rb);
-        rb.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+    private void addCheckBox(String str, int id) {
+        CheckBox cb = new CheckBox(PurposeScreen.this);
+        cb.setText(str);
+        cb.setId(id);
+        cb.setGravity(Gravity.TOP);
+        cb.setPadding(20, 0, 0, 10);
+        cb.setTextSize(22);
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = false;
+                for (int i = 1; i < reasons.getChildCount(); i ++) {
+                    if (((CheckBox) reasons.getChildAt(i)).isChecked()) {
+                        checked = true;
+                    }
+                }
+                finish.setEnabled(checked);
+            }
+        });
+        cb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
+        reasons.addView(cb);
+        cb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
     }
 
     /**
-     * Override onOptionsItemSelected, so that data will be passed to SelectTeacher if user
-     * presses the up arrow
+     * Read lines from purposes file
+     *
+     * @return list of purposes
+     */
+    private ArrayList<String> getPurposes() {
+        String path = Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DOCUMENTS + "/MediaCenterSignIn/purposes.txt";
+        ArrayList<String> purposes = new ArrayList<>();
+
+        // read all lines from database
+        try (FileReader fr = new FileReader(path);
+             BufferedReader br = new BufferedReader(fr)) {
+            for (String line; (line = br.readLine()) != null;) {
+                purposes.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return purposes;
+    }
+
+    /**
+     * Override onOptionsItemSelected, so that data will be passed to SelectTeacher
+     * if user presses the up arrow
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -135,12 +161,13 @@ public class PurposeScreen extends AppCompatActivity {
      * @param email address to send to
      */
     public void sendEmail(String email) {
-        String subject = "Poolesville Media Center Notification [Please Reply]";
+        String subject = "Poolesville Media Center Notification";
         Timestamp time = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd");
         String message = "This message is to notify you that your student, " + student.getFullName() +
                          ", was sent to the media center at " + sdf.format(time) + ".\n\n" +
-                         "Please reply with \"Yes\" or \"No\" to confirm.\n\n\n" +
+                         "If you did not send the student to the library, please reply \"no\" to this email." +
+                         "No action is needed if you allowed the student to go to the media center.\n\n\n" +
                          "This message was automatically sent from the Poolesville Media Center. " +
                          "If you have a question or problem, please contact the Media Center staff.";
 
@@ -164,11 +191,22 @@ public class PurposeScreen extends AppCompatActivity {
     }
 
     public void sendInfoDone(View view) {
-        RadioButton rb = (RadioButton) rgroup.findViewById(rgroup.getCheckedRadioButtonId());
-        student.saveToFile(instructor, substitute ? "Yes" : "No", rb.getText().toString());
+        ArrayList<String> reason = new ArrayList<>();
+        for (int i = 1; i < reasons.getChildCount(); i ++) {
+            if (((CheckBox) reasons.getChildAt(i)).isChecked()) {
+                reason.add(((CheckBox) reasons.getChildAt(i)).getText().toString());
+            }
+        }
 
-        // sendEmail(getEmail()); replace with this line on final version
-        sendEmail("kchen1250@gmail.com");
+        String joined = reason.get(0);
+        for (int i = 1; i < reason.size(); i ++) {
+            joined += "|" + reason.get(i);
+        }
+
+        student.saveToFile(instructor, substitute ? "Yes" : "No", joined);
+
+        //sendEmail(getEmail());
+        sendEmail("kchen1250@gmail.com"); // change for actual email sending
 
         // display Toast and return to initial screen
         Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();
