@@ -115,12 +115,13 @@
                         android:id="@+id/sv1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarThumbVertical="@color/colorLightGray"
                         android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical"
-
+                        android:background="@color/colorLightererGray"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="0dp">
 
@@ -128,10 +129,6 @@
                             android:id="@+id/rg1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
                         </RadioGroup>
                     </ScrollView>
                 </LinearLayout>
@@ -146,20 +143,18 @@
                         android:id="@+id/sv2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarThumbVertical="@color/colorLightGray"
                         android:scrollbarSize="6dip"
-                        android:requiresFadingEdge="vertical">
+                        android:requiresFadingEdge="vertical"
+                        android:background="@color/colorLightererGray">
 
                         <RadioGroup
                             android:id="@+id/rg2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
                         </RadioGroup>
                     </ScrollView>
                 </LinearLayout>
@@ -174,20 +169,18 @@
                         android:id="@+id/sv3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarThumbVertical="@color/colorLightGray"
                         android:scrollbarSize="6dip"
-                        android:requiresFadingEdge="vertical">
+                        android:requiresFadingEdge="vertical"
+                        android:background="@color/colorLightererGray">
 
                         <RadioGroup
                             android:id="@+id/rg3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
                         </RadioGroup>
                     </ScrollView>
                 </LinearLayout>

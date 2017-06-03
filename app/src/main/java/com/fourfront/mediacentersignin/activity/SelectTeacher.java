@@ -293,7 +293,7 @@ public class SelectTeacher extends AppCompatActivity {
         String[] names = getAllTeachers().toArray(new String[0]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, names);
         sp.setAdapter(adapter);
-        sp.setPadding(42, 0, 0, 0); 
+        sp.setPadding(42, 0, 0, 0);
         sp.setVisibility(View.GONE);
         rg3.addView(sp);
     }

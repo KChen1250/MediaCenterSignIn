@@ -6,5 +6,6 @@
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorPrimaryGray">#909090</color>
     <color name="colorLightGray">#DDDDDD</color>
-    <color name="colorLighterGray">#F3F3F3</color>
+    <color name="colorLighterGray">#EFEFEF</color>
+    <color name="colorLightererGray">#FAFAFA</color>
 </resources>
