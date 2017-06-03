@@ -101,7 +101,7 @@ public class PurposeScreen extends AppCompatActivity {
         cb.setId(id);
         cb.setGravity(Gravity.TOP);
         cb.setPadding(20, 0, 0, 10);
-        cb.setTextSize(22);
+        cb.setTextSize(24);
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

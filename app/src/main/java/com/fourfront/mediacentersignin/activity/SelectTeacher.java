@@ -75,7 +75,7 @@ public class SelectTeacher extends AppCompatActivity {
                 t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
-                sp.setEnabled(false);
+                sp.setVisibility(View.GONE);
             }
         }
     };
@@ -91,7 +91,7 @@ public class SelectTeacher extends AppCompatActivity {
                 t2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
-                sp.setEnabled(false);
+                sp.setVisibility(View.GONE);
             }
         }
     };
@@ -110,9 +110,9 @@ public class SelectTeacher extends AppCompatActivity {
 
                 // enable the spinner when the last radiobutton is pressed, disable if otherwise
                 if (((RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId())).getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
-                    sp.setEnabled(true);
+                    sp.setVisibility(View.VISIBLE);
                 } else {
-                    sp.setEnabled(false);
+                    sp.setVisibility(View.GONE);
                 }
             }
         }
@@ -279,7 +279,7 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
         rb.setPadding(20, 0, 0, pad);
-        rb.setTextSize(22);
+        rb.setTextSize(24);
         rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
         rg.addView(rb);
         rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -293,8 +293,8 @@ public class SelectTeacher extends AppCompatActivity {
         String[] names = getAllTeachers().toArray(new String[0]);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, names);
         sp.setAdapter(adapter);
-        sp.setPadding(42, 0, 0, 0);
-        sp.setEnabled(false);
+        sp.setPadding(42, 0, 0, 0); 
+        sp.setVisibility(View.GONE);
         rg3.addView(sp);
     }
 
