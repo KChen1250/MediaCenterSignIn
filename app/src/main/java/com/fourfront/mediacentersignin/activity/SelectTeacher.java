@@ -71,9 +71,9 @@ public class SelectTeacher extends AppCompatActivity {
                 selectedTab = 0;
                 rg2.clearCheck();
                 rg3.clearCheck();
-                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
-                t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
                 sp.setEnabled(false);
             }
@@ -87,9 +87,9 @@ public class SelectTeacher extends AppCompatActivity {
                 selectedTab = 1;
                 rg1.clearCheck();
                 rg3.clearCheck();
-                t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
-                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
                 sp.setEnabled(false);
             }
@@ -103,10 +103,11 @@ public class SelectTeacher extends AppCompatActivity {
                 selectedTab = 2;
                 rg1.clearCheck();
                 rg2.clearCheck();
-                t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
-                t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
-                t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
+                t3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                 next.setEnabled(true);
+
                 // enable the spinner when the last radiobutton is pressed, disable if otherwise
                 if (((RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId())).getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
                     sp.setEnabled(true);
@@ -159,6 +160,8 @@ public class SelectTeacher extends AppCompatActivity {
         currentTab = 0;
         previousView = tabhost.getCurrentView();
 
+        tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorLighterGray));
+
         // set animations when switching tabs
         tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             public void onTabChanged(String tabId) {
@@ -173,6 +176,10 @@ public class SelectTeacher extends AppCompatActivity {
                 }
                 previousView = currentView;
                 currentTab = tabhost.getCurrentTab();
+                for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++) {
+                    tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
+                }
+                tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorLighterGray));
             }
         });
     }
@@ -206,13 +213,13 @@ public class SelectTeacher extends AppCompatActivity {
         int size = 20;
         t1.setTextSize(size);
         t1.setGravity(Gravity.CENTER);
-        t1.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+        t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
         t2.setTextSize(size);
         t2.setGravity(Gravity.CENTER);
-        t2.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+        t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
         t3.setTextSize(size);
         t3.setGravity(Gravity.CENTER);
-        t3.setTextColor(getResources().getColor(R.color.colorPrimaryGray));
+        t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
     }
 
     /**
@@ -252,7 +259,7 @@ public class SelectTeacher extends AppCompatActivity {
         String[] split;
         for (String i: extraStaff) {
             split = i.substring(1, i.length() - 1).split("\",\"", -1);
-            addRadioButton(split[0] + "\n" + split[1].toUpperCase(), id++, rg3, 10);
+            addRadioButton(split[1] + ", " + split[0] + "\n" + split[2].toUpperCase(), id++, rg3, 10);
         }
         addRadioButton(getResources().getString(R.string.other_instructor_dialog), id++, rg3, 0);
         setSpinner();
@@ -312,7 +319,7 @@ public class SelectTeacher extends AppCompatActivity {
         }
 
         for (String[] line: teacherInfo) {
-            names.add(line[0]);
+            names.add(line[1] + ", " + line[0]);
         }
 
         return names;

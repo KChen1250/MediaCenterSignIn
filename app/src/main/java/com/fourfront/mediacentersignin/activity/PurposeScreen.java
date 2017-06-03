@@ -183,8 +183,8 @@ public class PurposeScreen extends AppCompatActivity {
      */
     public String getEmail() {
         for (String[] i: emails) {
-            if (i[0].equals(instructor)) {
-                return i[1];
+            if ((i[1] + ", " + i[0]).equals(instructor)) {
+                return (i[1] + ", " + i[0]);
             }
         }
         return null;
@@ -205,7 +205,7 @@ public class PurposeScreen extends AppCompatActivity {
 
         student.saveToFile(instructor, substitute ? "Yes" : "No", joined);
 
-        sendEmail(getEmail());
+        // sendEmail(getEmail());
         // sendEmail("kchen1250@gmail.com"); // change for actual email sending
 
         // display Toast and return to initial screen

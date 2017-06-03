@@ -22,7 +22,7 @@
     <CheckBox
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:text="@string/substitute_checkbox"
         android:textSize="24sp"
@@ -35,10 +35,11 @@
         android:layout_height="0dp"
         android:text="@string/faculty_staff_select_welcome_message"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="45sp"
-        android:layout_marginTop="50dp"
+        android:textSize="50sp"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintLeft_toLeftOf="@+id/tabhost" />
+        app:layout_constraintLeft_toLeftOf="@+id/tabhost"
+        android:layout_marginLeft="0dp" />
 
     <Button
         android:id="@+id/next"
@@ -51,38 +52,41 @@
         android:textSize="20sp"
         style="@style/Widget.AppCompat.Button.Colored"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/tabhost" />
+        app:layout_constraintRight_toRightOf="@+id/tabhost"
+        android:layout_marginRight="0dp" />
 
     <TextView
         android:id="@+id/nameSubText"
-        android:layout_width="500dp"
+        android:layout_width="600dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/faculty_staff_select_dialog"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="@+id/tabhost"
-        app:layout_constraintTop_toBottomOf="@+id/nameText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameText"
+        android:layout_marginLeft="0dp" />
 
     <TextView
         android:id="@+id/substituteDialog"
-        android:layout_width="300dp"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:text="@string/substitute_dialog"
-        app:layout_constraintTop_toTopOf="@+id/next"
-        android:layout_marginTop="0dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/checkBox" />
+        android:layout_marginTop="0dp"
+        android:text="@string/substitute_dialog"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@+id/checkBox"
+        app:layout_constraintTop_toTopOf="@+id/next" />
 
     <TabHost
         android:id="@+id/tabhost"
-        android:layout_width="500dp"
+        android:layout_width="600dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/next"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameSubText"
-        app:layout_constraintBottom_toTopOf="@+id/next"
-        android:layout_marginTop="8dp">
+        app:layout_constraintTop_toBottomOf="@+id/nameSubText">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,9 +96,9 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_alignParentTop="true"/>
+                android:layout_height="50dp"
+                android:showDividers="none"
+                android:layout_gravity="top" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -108,10 +112,15 @@
                     android:orientation="vertical">
 
                     <ScrollView
+                        android:id="@+id/sv1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
+                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical"
+
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="0dp">
 
@@ -134,9 +143,13 @@
                     android:orientation="vertical">
 
                     <ScrollView
+                        android:id="@+id/sv2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
+                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical">
 
                         <RadioGroup
@@ -158,9 +171,13 @@
                     android:orientation="vertical">
 
                     <ScrollView
+                        android:id="@+id/sv3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
+                        android:scrollbarThumbVertical="@color/colorLighterGray"
+                        android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical">
 
                         <RadioGroup

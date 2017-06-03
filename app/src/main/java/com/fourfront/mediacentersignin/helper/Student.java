@@ -66,7 +66,7 @@ public class Student implements Serializable {
     }
 
     public String getCounselorName() {
-        return CNSLRF + " " + CNSLRL;
+        return CNSLRL + ", " + CNSLRF;
     }
 
     public ArrayList<String> getCourses() {
@@ -81,7 +81,7 @@ public class Student implements Serializable {
         // add last names and first names
         ArrayList<String> fullTNs = new ArrayList<>();
         for (int i = 0; i < TCHF.size(); i ++) {
-            fullTNs.add(TCHF.get(i) + " " + TCHL.get(i));
+            fullTNs.add(TCHL.get(i) + ", " + TCHF.get(i));
         }
         return fullTNs;
     }
