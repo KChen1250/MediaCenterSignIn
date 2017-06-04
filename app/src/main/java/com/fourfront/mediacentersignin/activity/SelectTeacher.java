@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Teacher / Staff selection screen
@@ -156,10 +157,20 @@ public class SelectTeacher extends AppCompatActivity {
         rg2.setOnCheckedChangeListener(m2);
         rg3.setOnCheckedChangeListener(m3);
 
-        selectedTab = 0;
-        currentTab = 0;
-        previousView = tabhost.getCurrentView();
+        int sem;
+        Calendar now = Calendar.getInstance();
 
+        // change tab based on current semester
+        if (now.get(Calendar.MONTH) < 8 && now.get(Calendar.WEEK_OF_YEAR) >= 5) {
+            sem = 1;
+        } else {
+            sem = 0;
+        }
+
+        tabhost.setCurrentTab(sem);
+        selectedTab = sem;
+        currentTab = sem;
+        previousView = tabhost.getCurrentView();
         tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorLighterGray));
 
         // set animations when switching tabs
@@ -176,6 +187,8 @@ public class SelectTeacher extends AppCompatActivity {
                 }
                 previousView = currentView;
                 currentTab = tabhost.getCurrentTab();
+
+                // change background of tabs
                 for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++) {
                     tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
                 }
