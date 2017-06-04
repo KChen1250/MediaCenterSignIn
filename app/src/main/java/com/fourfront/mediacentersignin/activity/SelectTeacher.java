@@ -168,6 +168,7 @@ public class SelectTeacher extends AppCompatActivity {
             sem = 0;
         }
 
+        // initialize tab variables and set current tab color
         tabhost.setCurrentTab(sem);
         selectedTab = sem;
         currentTab = sem;
@@ -199,7 +200,7 @@ public class SelectTeacher extends AppCompatActivity {
     }
 
     /**
-     * Format the three tabs and add all RadioButtons
+     * Format tabs and add all RadioButtons
      */
     private void initializeTabs() {
         tabhost.setup();
