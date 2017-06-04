@@ -66,6 +66,7 @@
         android:layout_marginTop="8dp"
         android:fadeScrollbars="false"
         android:fadingEdgeLength="80dp"
+        android:padding="10dp"
         android:requiresFadingEdge="vertical"
         android:scrollbarThumbVertical="@color/colorLightGray"
         android:scrollbarSize="6dip"
