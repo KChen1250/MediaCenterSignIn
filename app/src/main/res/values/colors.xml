@@ -8,4 +8,13 @@
     <color name="colorLighterGray">#EFEFEF</color>
     <color name="colorLightererGray">#FBFBFB</color>
     <color name="colorBackground">#FFFFFF</color>
+
+    <color name="colorSecondaryPrimary">#4285F4</color>
+    <color name="colorSecondaryPrimaryDark">#356AC3</color>
+    <color name="colorSecondaryAccent">#4182EF</color>
+    <color name="colorSecondaryPrimaryGray">#909090</color>
+    <color name="colorSecondaryLightGray">#DDDDDD</color>
+    <color name="colorSecondaryLighterGray">#EFEFEF</color>
+    <color name="colorSecondaryLightererGray">#FBFBFB</color>
+    <color name="colorSecondaryBackground">#FFFFFF</color>
 </resources>
