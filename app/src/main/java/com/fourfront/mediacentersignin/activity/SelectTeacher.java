@@ -23,6 +23,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fourfront.mediacentersignin.R;
 import com.fourfront.mediacentersignin.helper.CustomSpinnerAdapter;
@@ -317,7 +318,8 @@ public class SelectTeacher extends AppCompatActivity {
     private void setSpinner() {
         sp = new Spinner(SelectTeacher.this);
         String[] names = getAllTeachers().toArray(new String[0]);
-        sp.setAdapter(new CustomSpinnerAdapter(this, R.layout.spinner_item, names, "Tap to select", getThemeColor()));
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, names);
+        sp.setAdapter(adapter);
         sp.setPadding(42, 0, 0, 0);
         sp.setVisibility(View.GONE);
         rg3.addView(sp);
@@ -347,6 +349,7 @@ public class SelectTeacher extends AppCompatActivity {
             names.add(line[1] + ", " + line[0]);
         }
 
+        names.add(0, "Tap to select");
         return names;
     }
 
@@ -423,6 +426,7 @@ public class SelectTeacher extends AppCompatActivity {
 
         // get the string of the selected teacher
         switch (selectedTab) {
+            default:
             case 0:
                 rb = (RadioButton) rg1.findViewById(rg1.getCheckedRadioButtonId());
                 selectedInstructor = rb.getText().toString().split("\n")[0];
@@ -431,7 +435,7 @@ public class SelectTeacher extends AppCompatActivity {
                 rb = (RadioButton) rg2.findViewById(rg2.getCheckedRadioButtonId());
                 selectedInstructor = rb.getText().toString().split("\n")[0];
                 break;
-            default:    // case 2
+            case 2:
                 rb = (RadioButton) rg3.findViewById(rg3.getCheckedRadioButtonId());
                 if (rb.getText().toString().equals(getResources().getString(R.string.other_instructor_dialog))) {
                     selectedInstructor = sp.getSelectedItem().toString();
@@ -441,12 +445,18 @@ public class SelectTeacher extends AppCompatActivity {
                 break;
         }
 
-        // pass student and click data to next Activity
-        Intent intent = new Intent(this, PurposeScreen.class);
-        intent.putExtra("STUDENT", student);
-        intent.putExtra("INSTRUCTOR", selectedInstructor);
-        intent.putExtra("SUBSTITUTE", substituteCheck);
-        intent.putExtra("INFO", teacherInfo);
-        startActivity(intent);
+        // workaround for a problem with the spinner
+        if (selectedInstructor.equals("Tap to select")) {
+            Toast.makeText(SelectTeacher.this, "Please select an instructor from the dropdown menu.", Toast.LENGTH_LONG).show();
+        } else {
+            // pass student and click data to next Activity
+            Intent intent = new Intent(this, PurposeScreen.class);
+            intent.putExtra("STUDENT", student);
+            intent.putExtra("INSTRUCTOR", selectedInstructor);
+            intent.putExtra("SUBSTITUTE", substituteCheck);
+            intent.putExtra("INFO", teacherInfo);
+            startActivity(intent);
+        }
+
     }
 }
