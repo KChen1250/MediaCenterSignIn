@@ -53,6 +53,11 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
         return getCustomView(position, convertView, parent);
     }
 
+    /**
+     * Set default text
+     *
+     * @param defaultText default text
+     */
     public void setDefaultText(String defaultText) {
         this.firstElement = objects[0];
         objects[0] = defaultText;
