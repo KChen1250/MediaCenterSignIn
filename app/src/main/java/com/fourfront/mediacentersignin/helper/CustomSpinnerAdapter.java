@@ -1,6 +1,7 @@
 package com.fourfront.mediacentersignin.helper;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.fourfront.mediacentersignin.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Helper class to create a custom spinner in SelectTeacher
@@ -24,12 +27,14 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     private String[] objects;
     private String firstElement;
     private boolean isFirstTime;
+    private int layout;
 
-    public CustomSpinnerAdapter(Context context, int textViewResourceId, String[] objects, String defaultText) {
+    public CustomSpinnerAdapter(Context context, int textViewResourceId, String[] objects, String defaultText, int layout) {
         super(context, textViewResourceId, objects);
         this.context = context;
         this.objects = objects;
         this.isFirstTime = true;
+        this.layout = layout;
         setDefaultText(defaultText);
     }
 

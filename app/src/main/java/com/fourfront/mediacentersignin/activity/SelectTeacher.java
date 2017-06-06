@@ -317,7 +317,7 @@ public class SelectTeacher extends AppCompatActivity {
     private void setSpinner() {
         sp = new Spinner(SelectTeacher.this);
         String[] names = getAllTeachers().toArray(new String[0]);
-        sp.setAdapter(new CustomSpinnerAdapter(this, R.layout.spinner_item, names, "Tap to select"));
+        sp.setAdapter(new CustomSpinnerAdapter(this, R.layout.spinner_item, names, "Tap to select", getThemeColor()));
         sp.setPadding(42, 0, 0, 0);
         sp.setVisibility(View.GONE);
         rg3.addView(sp);
