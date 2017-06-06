@@ -18,8 +18,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Media Center Sign In"
-        app:titleTextColor="@color/colorBackground" />
+        app:title="Media Center Sign In"/>
 
     <TextView
         android:id="@+id/hello"

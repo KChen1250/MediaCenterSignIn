@@ -1,8 +1,10 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -73,7 +75,7 @@ public class SelectTeacher extends AppCompatActivity {
                 selectedTab = 0;
                 rg2.clearCheck();
                 rg3.clearCheck();
-                t1.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t1.setTextColor(getResources().getColor(getThemeColor() == 0 ? R.color.accentBW : R.color.accentBG));
                 t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
@@ -90,7 +92,7 @@ public class SelectTeacher extends AppCompatActivity {
                 rg1.clearCheck();
                 rg3.clearCheck();
                 t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t2.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t2.setTextColor(getResources().getColor(getThemeColor() == 0 ? R.color.accentBW : R.color.accentBG));
                 t3.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 next.setEnabled(true);
                 sp.setVisibility(View.GONE);
@@ -107,7 +109,7 @@ public class SelectTeacher extends AppCompatActivity {
                 rg2.clearCheck();
                 t1.setTextColor(getResources().getColor(android.R.color.primary_text_light));
                 t2.setTextColor(getResources().getColor(android.R.color.primary_text_light));
-                t3.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                t3.setTextColor(getResources().getColor(getThemeColor() == 0 ? R.color.accentBW : R.color.accentBG));
                 next.setEnabled(true);
 
                 // enable the spinner when the last radiobutton is pressed, disable if otherwise
@@ -123,6 +125,11 @@ public class SelectTeacher extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getThemeColor() == 0) {
+            setTheme(R.style.BlueAndWhite);
+        } else {
+            setTheme(R.style.BlackAndGold);
+        }
         setContentView(R.layout.activity_select_teacher);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -144,7 +151,7 @@ public class SelectTeacher extends AppCompatActivity {
         rg3 = (RadioGroup) findViewById(R.id.rg3);
         tabhost = (TabHost) findViewById(R.id.tabhost);
 
-        substitute.setTextColor(getResources().getColorStateList(R.color.check_box_style));
+        substitute.setTextColor(getResources().getColorStateList(getThemeColor() == 0 ? R.color.check_box_style : R.color.check_box_style3));
         substitute.setPadding(6, 0, 0, 0);
         substitute.setGravity(Gravity.TOP);
 
@@ -173,7 +180,10 @@ public class SelectTeacher extends AppCompatActivity {
         selectedTab = sem;
         currentTab = sem;
         previousView = tabhost.getCurrentView();
-        tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorLighterGray));
+        tabhost.getTabWidget().getChildAt(0).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.backgroundBW : R.color.lightBackgroundBG));
+        tabhost.getTabWidget().getChildAt(1).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.backgroundBW : R.color.lightBackgroundBG));
+        tabhost.getTabWidget().getChildAt(2).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.backgroundBW : R.color.lightBackgroundBG));
+        tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.lighterGrayBW : R.color.lightererGrayBG));
 
         // set animations when switching tabs
         tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
@@ -192,9 +202,9 @@ public class SelectTeacher extends AppCompatActivity {
 
                 // change background of tabs
                 for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++) {
-                    tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(R.color.colorBackground));
+                    tabhost.getTabWidget().getChildAt(i).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.backgroundBW : R.color.lightBackgroundBG));
                 }
-                tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.colorLighterGray));
+                tabhost.getTabWidget().getChildAt(tabhost.getCurrentTab()).setBackgroundColor(getResources().getColor(getThemeColor() == 0 ? R.color.lighterGrayBW : R.color.lighterGrayBG));
             }
         });
     }
@@ -295,7 +305,8 @@ public class SelectTeacher extends AppCompatActivity {
         rb.setGravity(Gravity.TOP);
         rb.setPadding(20, 0, 0, pad);
         rb.setTextSize(24);
-        rb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
+        if (getThemeColor() == 1) rb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.gray));
+        rb.setTextColor(getResources().getColorStateList(getThemeColor() == 0 ? R.color.radio_button_style : R.color.radio_button_style2));
         rg.addView(rb);
         rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
     }
@@ -393,6 +404,17 @@ public class SelectTeacher extends AppCompatActivity {
         animation.setDuration(280);     // the "sweet spot" of animation times
         animation.setInterpolator(new FastOutSlowInInterpolator());
         return animation;
+    }
+
+    /**
+     * Return which theme to apply
+     *
+     * @return id of theme
+     */
+    private int getThemeColor() {
+        SharedPreferences m = getSharedPreferences("ThemeColor", MODE_PRIVATE);
+        int theme = m.getInt("theme", 0);
+        return theme;
     }
 
     public void nextButton(View view) {

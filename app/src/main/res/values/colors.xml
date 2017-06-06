@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4285F4</color>
-    <color name="colorPrimaryDark">#356AC3</color>
-    <color name="colorAccent">#4182EF</color>
-    <color name="colorPrimaryGray">#909090</color>
-    <color name="colorLightGray">#DDDDDD</color>
-    <color name="colorLighterGray">#EFEFEF</color>
-    <color name="colorLightererGray">#FBFBFB</color>
-    <color name="colorBackground">#FFFFFF</color>
+    <color name="primaryBW">#00a9f4</color>
+    <color name="primaryDarkBW">#007ac1</color>
+    <color name="accentBW">#00b0ff</color>
+    <color name="backgroundBW">#ffffff</color>
+    <color name="lightGrayBW">#dddddd</color>
+    <color name="lighterGrayBW">#eeeeee</color>
+    <color name="lightererGrayBW">#fbfbfb</color>
 
-    <color name="colorSecondaryPrimary">#4285F4</color>
-    <color name="colorSecondaryPrimaryDark">#356AC3</color>
-    <color name="colorSecondaryAccent">#4182EF</color>
-    <color name="colorSecondaryPrimaryGray">#909090</color>
-    <color name="colorSecondaryLightGray">#DDDDDD</color>
-    <color name="colorSecondaryLighterGray">#EFEFEF</color>
-    <color name="colorSecondaryLightererGray">#FBFBFB</color>
-    <color name="colorSecondaryBackground">#FFFFFF</color>
+    <color name="primaryBG">#212121</color>
+    <color name="primaryDarkBG">#000000</color>
+    <color name="accentBG">#ffc107</color>
+    <color name="backgroundBG">#383838</color>
+    <color name="lightBackgroundBG">#717171</color>
+    <color name="lightGrayBG">#dddddd</color>
+    <color name="lighterGrayBG">#eeeeee</color>
+    <color name="lightererGrayBG">#fbfbfb</color>
+
+    <color name="primaryGray">#909090</color>
+    <color name="gray">#333333</color>
 </resources>

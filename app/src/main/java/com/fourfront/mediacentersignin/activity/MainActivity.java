@@ -1,6 +1,7 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -58,7 +59,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // change theme based on which is selected
+        if (getThemeColor() == 0) {
+            setTheme(R.style.BlueAndWhite);
+        } else {
+            setTheme(R.style.BlackAndGold);
+        }
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
@@ -102,7 +110,44 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.blue_white) {
+            storeThemeColor(0);
+            finish();
+            startActivity(getIntent());
+            return true;
+        }
+
+        if (id == R.id.black_gold) {
+            storeThemeColor(1);
+            finish();
+            startActivity(getIntent());
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Store a theme id
+     *
+     * @param theme id of theme
+     */
+    private void storeThemeColor(int theme) {
+        SharedPreferences m = getSharedPreferences("ThemeColor", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = m.edit();
+        mEditor.putInt("theme", theme);
+        mEditor.apply();
+    }
+
+    /**
+     * Return which theme to apply
+     *
+     * @return id of theme
+     */
+    private int getThemeColor() {
+        SharedPreferences m = getSharedPreferences("ThemeColor", MODE_PRIVATE);
+        int theme = m.getInt("theme", 0);
+        return theme;
     }
 
     public void nextButton(View view) {

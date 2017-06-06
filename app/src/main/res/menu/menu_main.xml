@@ -3,6 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fourfront.mediacentersignin.activity.MainActivity">
     <item
+        android:id="@+id/blue_white"
+        android:orderInCategory="100"
+        android:title="@string/blue_white"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/black_gold"
+        android:orderInCategory="100"
+        android:title="@string/black_gold"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
         android:title="@string/action_about"

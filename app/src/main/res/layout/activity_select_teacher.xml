@@ -118,10 +118,10 @@
                         android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLightGray"
+                        android:scrollbarThumbVertical="@color/lightGrayBW"
                         android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical"
-                        android:background="@color/colorLightererGray"
+                        android:background="@color/lightererGrayBW"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="0dp">
 
@@ -146,10 +146,10 @@
                         android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLightGray"
+                        android:scrollbarThumbVertical="@color/lightGrayBW"
                         android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical"
-                        android:background="@color/colorLightererGray">
+                        android:background="@color/lightererGrayBW">
 
                         <RadioGroup
                             android:id="@+id/rg2"
@@ -172,10 +172,10 @@
                         android:padding="10dp"
                         android:fadeScrollbars="false"
                         android:fadingEdgeLength="80dp"
-                        android:scrollbarThumbVertical="@color/colorLightGray"
+                        android:scrollbarThumbVertical="@color/lightGrayBW"
                         android:scrollbarSize="6dip"
                         android:requiresFadingEdge="vertical"
-                        android:background="@color/colorLightererGray">
+                        android:background="@color/lightererGrayBW">
 
                         <RadioGroup
                             android:id="@+id/rg3"

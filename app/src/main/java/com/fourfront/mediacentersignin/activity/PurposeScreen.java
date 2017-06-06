@@ -1,7 +1,9 @@
 package com.fourfront.mediacentersignin.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,6 +54,11 @@ public class PurposeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getThemeColor() == 0) {
+            setTheme(R.style.BlueAndWhite);
+        } else {
+            setTheme(R.style.BlackAndGold);
+        }
         setContentView(R.layout.activity_purpose_screen);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -102,6 +109,7 @@ public class PurposeScreen extends AppCompatActivity {
         cb.setGravity(Gravity.TOP);
         cb.setPadding(20, 0, 0, 10);
         cb.setTextSize(24);
+        if (getThemeColor() == 1) cb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.gray));
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +122,7 @@ public class PurposeScreen extends AppCompatActivity {
                 finish.setEnabled(checked);
             }
         });
-        cb.setTextColor(getResources().getColorStateList(R.color.radio_button_style));
+        cb.setTextColor(getResources().getColorStateList(getThemeColor() == 0 ? R.color.radio_button_style : R.color.radio_button_style2));
         reasons.addView(cb);
         cb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
     }
@@ -139,6 +147,17 @@ public class PurposeScreen extends AppCompatActivity {
         }
 
         return purposes;
+    }
+
+    /**
+     * Return which theme to apply
+     *
+     * @return id of theme
+     */
+    private int getThemeColor() {
+        SharedPreferences m = getSharedPreferences("ThemeColor", MODE_PRIVATE);
+        int theme = m.getInt("theme", 0);
+        return theme;
     }
 
     /**
@@ -205,7 +224,7 @@ public class PurposeScreen extends AppCompatActivity {
 
         student.saveToFile(instructor, substitute ? "Yes" : "No", joined);
 
-        // sendEmail(getEmail());
+        sendEmail(getEmail());
         // sendEmail("kchen1250@gmail.com"); // change for actual email sending
 
         // display Toast and return to initial screen

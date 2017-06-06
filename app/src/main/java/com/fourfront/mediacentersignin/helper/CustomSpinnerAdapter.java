@@ -54,8 +54,7 @@ public class CustomSpinnerAdapter extends ArrayAdapter<String> {
     }
 
     public View getCustomView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inflater.inflate(R.layout.spinner_item, parent, false);
         TextView label = (TextView) row.findViewById(R.id.spinner_text);
         label.setText(objects[position]);
