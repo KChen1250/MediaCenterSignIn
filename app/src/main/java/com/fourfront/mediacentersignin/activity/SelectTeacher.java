@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fourfront.mediacentersignin.R;
-import com.fourfront.mediacentersignin.helper.CustomSpinnerAdapter;
 import com.fourfront.mediacentersignin.helper.Student;
 
 import java.io.BufferedReader;
