@@ -5,12 +5,12 @@
     <item
         android:id="@+id/blue_white"
         android:orderInCategory="100"
-        android:title="@string/blue_white"
+        android:title="@string/blue_white_dialog"
         app:showAsAction="never" />
     <item
         android:id="@+id/black_gold"
         android:orderInCategory="100"
-        android:title="@string/black_gold"
+        android:title="@string/black_gold_dialog"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"

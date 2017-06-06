@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        // switch to blue and white theme
         if (id == R.id.blue_white) {
             storeThemeColor(0);
             finish();
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        // switch to black and gold theme
         if (id == R.id.black_gold) {
             storeThemeColor(1);
             finish();
@@ -150,6 +152,11 @@ public class MainActivity extends AppCompatActivity {
         return theme;
     }
 
+    /**
+     * Process what happens when the next button is pressed
+     *
+     * @param view current view
+     */
     public void nextButton(View view) {
         Student student = new Student(id.getText().toString());
 

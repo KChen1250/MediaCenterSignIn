@@ -226,7 +226,7 @@ public class PurposeScreen extends AppCompatActivity {
 
         String email = getEmail();
         if (email != null) {
-            sendEmail(email);
+            // sendEmail(email);
         }
         // sendEmail("kchen1250@gmail.com"); // change for actual email sending
 

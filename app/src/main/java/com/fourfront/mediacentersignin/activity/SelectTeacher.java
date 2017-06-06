@@ -456,6 +456,5 @@ public class SelectTeacher extends AppCompatActivity {
             intent.putExtra("INFO", teacherInfo);
             startActivity(intent);
         }
-
     }
 }
