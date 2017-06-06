@@ -183,8 +183,8 @@ public class PurposeScreen extends AppCompatActivity {
         String subject = "Poolesville Media Center Notification";
         Timestamp time = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm MM/dd");
-        String message = "This message is to notify you that your student, " + student.getFullName() +
-                         ", has arrived at the media center at " + sdf.format(time) + ".\n\n" +
+        String message = "This message is to notify you that your student " + student.getFullName() +
+                         " has arrived at the media center at " + sdf.format(time) + ".\n\n" +
                          "If you did not send the student to the library, please reply \"no\" to this email. " +
                          "No action is needed if you allowed the student to go to the media center.\n\n\n" +
                          "This message was automatically sent from the Poolesville Media Center. " +
