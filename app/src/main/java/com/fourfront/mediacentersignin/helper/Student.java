@@ -117,6 +117,8 @@ public class Student implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        SendData.postData(ID, FULL_NAME, sender, isSubstitute, reason);
     }
 
     /**
