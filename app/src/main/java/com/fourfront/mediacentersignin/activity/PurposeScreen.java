@@ -233,7 +233,9 @@ public class PurposeScreen extends AppCompatActivity {
 
         // display Toast and return to initial screen
         Toast.makeText(PurposeScreen.this, "Thank you for signing in.", Toast.LENGTH_SHORT).show();
+
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }
