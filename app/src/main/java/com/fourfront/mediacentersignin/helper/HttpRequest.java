@@ -73,6 +73,7 @@ public class HttpRequest {
     }
 
     public String sendPost(String url, String data) {
+        // https://stackoverflow.com/a/9289190
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         return sendPost(url, data, null);
