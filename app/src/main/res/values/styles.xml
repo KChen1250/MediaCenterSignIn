@@ -16,4 +16,12 @@
         <item name="android:colorBackground">@color/backgroundBG</item>
     </style>
 
+    <style name="BlackAndGoldLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryBG</item>
+        <item name="colorPrimaryDark">@color/primaryDarkBG</item>
+        <item name="colorAccent">@color/accentBG</item>
+        <item name="android:colorBackground">@color/backgroundBG</item>
+    </style>
+
 </resources>

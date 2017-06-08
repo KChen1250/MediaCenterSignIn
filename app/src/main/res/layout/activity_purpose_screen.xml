@@ -60,21 +60,21 @@
         android:id="@+id/listOfReasons"
         android:layout_width="600dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         android:fadeScrollbars="false"
-        android:fadingEdgeLength="80dp"
+        android:fadingEdgeLength="50dp"
         android:padding="10dp"
         android:requiresFadingEdge="vertical"
         android:scrollbarThumbVertical="@color/lightGrayBW"
         android:scrollbarSize="6dip"
         android:background="@color/lightererGrayBW"
-        app:layout_constraintBottom_toTopOf="@+id/details"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/purposeSubDialog">
+        app:layout_constraintTop_toBottomOf="@+id/purposeSubDialog"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/finish">
 
         <LinearLayout
             android:id="@+id/listofreasons"
@@ -88,17 +88,17 @@
     <TextView
         android:id="@+id/details"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textSize="24sp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
         android:layout_marginLeft="0dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center_vertical"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/finish"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/listOfReasons"
         app:layout_constraintRight_toLeftOf="@+id/finish"
-        android:layout_marginRight="16dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toTopOf="@+id/finish"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/finish"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="0dp" />
+        app:layout_constraintTop_toTopOf="@+id/finish" />
 
 </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -103,13 +104,13 @@ public class PurposeScreen extends AppCompatActivity {
      * @param id    ID of CheckBox
      */
     private void addCheckBox(String str, int id) {
-        CheckBox cb = new CheckBox(PurposeScreen.this);
+        CheckBox cb = new CheckBox(new ContextThemeWrapper(this, getThemeColor() == 0 ? R.style.BlueAndWhite : R.style.BlackAndGoldLight), null);
         cb.setText(str);
         cb.setId(id);
         cb.setGravity(Gravity.TOP);
         cb.setPadding(20, 0, 0, 10);
         cb.setTextSize(24);
-        if (getThemeColor() == 1) cb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.gray));
+
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -219,7 +220,7 @@ public class PurposeScreen extends AppCompatActivity {
 
         String joined = reason.get(0);
         for (int i = 1; i < reason.size(); i ++) {
-            joined += "|" + reason.get(i);
+            joined += "," + reason.get(i);
         }
 
         student.saveToFile(instructor, substitute ? "Yes" : "No", joined);

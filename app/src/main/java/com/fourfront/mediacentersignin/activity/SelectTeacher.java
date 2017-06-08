@@ -9,6 +9,7 @@ import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -299,13 +300,12 @@ public class SelectTeacher extends AppCompatActivity {
      * @param pad   Padding between RadioButtons
      */
     private void addRadioButton(String str, int id, RadioGroup rg, int pad) {
-        RadioButton rb = new RadioButton(SelectTeacher.this);
+        RadioButton rb = new RadioButton(new ContextThemeWrapper(this, getThemeColor() == 0 ? R.style.BlueAndWhite : R.style.BlackAndGoldLight), null);
         rb.setText(str);
         rb.setId(id);
         rb.setGravity(Gravity.TOP);
         rb.setPadding(20, 0, 0, pad);
         rb.setTextSize(24);
-        if (getThemeColor() == 1) rb.setButtonTintList(ContextCompat.getColorStateList(this, R.color.gray));
         rb.setTextColor(getResources().getColorStateList(getThemeColor() == 0 ? R.color.radio_button_style : R.color.radio_button_style2));
         rg.addView(rb);
         rb.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -315,7 +315,7 @@ public class SelectTeacher extends AppCompatActivity {
      * Set the Spinner containing all the teachers / staff
      */
     private void setSpinner() {
-        sp = new Spinner(SelectTeacher.this);
+        sp = new Spinner(SelectTeacher.this, null);
         String[] names = getAllTeachers().toArray(new String[0]);
         ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.spinner_item, names);
         sp.setAdapter(adapter);
@@ -446,7 +446,7 @@ public class SelectTeacher extends AppCompatActivity {
 
         // workaround for a problem with the spinner
         if (selectedInstructor.equals("Tap to select")) {
-            Toast.makeText(SelectTeacher.this, "Please select an instructor from the dropdown menu.", Toast.LENGTH_LONG).show();
+            Toast.makeText(SelectTeacher.this, "Please tap to select an instructor.", Toast.LENGTH_LONG).show();
         } else {
             // pass student and click data to next Activity
             Intent intent = new Intent(this, PurposeScreen.class);
