@@ -187,7 +187,7 @@ public class Student implements Serializable {
      * @return  list of info
      */
     private ArrayList<String[]> getStudentInfo() {
-        ArrayList<String> allStudents = getListFromFile(path + "/MediaCenterSignIn/fourfront.mer");
+        ArrayList<String> allStudents = getListFromFile(path + "/MediaCenterSignIn/student_database.mer");
         ArrayList<String[]> thisStudent = new ArrayList<>();
         int index = getStudentIndex(allStudents);
 
