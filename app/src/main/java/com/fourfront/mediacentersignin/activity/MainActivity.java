@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ActionMode;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -73,6 +75,28 @@ public class MainActivity extends AppCompatActivity {
         next = (Button) findViewById(R.id.next);
         id = (EditText) findViewById(R.id.enterID);
         id.addTextChangedListener(m);
+
+        // go to the next screen when the enter or done button on the keyboard is pressed
+        id.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            if (next.isEnabled()) {
+                                next.performClick();
+                            }
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
+
+        // focus on the id input EditText and show keyboard automatically
+        id.requestFocus();
 
         // prevents the copy / paste dialog from showing up when highlighting text
         id.setCustomSelectionActionModeCallback(new ActionMode.Callback() {

@@ -57,15 +57,15 @@
 
     <EditText
         android:id="@+id/enterID"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
         android:gravity="left"
         android:inputType="number"
         android:maxLength="6"
-        android:textSize="65sp"
+        android:textSize="85sp"
         app:layout_constraintLeft_toLeftOf="@+id/signinDialog"
         app:layout_constraintTop_toBottomOf="@+id/signinDialog" />
 
